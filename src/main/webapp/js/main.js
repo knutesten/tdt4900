@@ -1,1 +1,3 @@
-$('body').text("Hello world!");
+parseActivPalData("../csv/test.csv", function(d){
+	console.log(d);
+});
