@@ -11,7 +11,7 @@ function parseActivPalData(file, callback){
 		for(var i = 0; i < rows.length; i++){
 			row = rows[i];
 			element = {
-				time: new Date(row["Time"].replace(/#/g, "")),
+				time: new Date(row["Time"].replace(/#/g, "").replace(" ", "T")),
 				interval: parseFloat(row["Interval (s)"])*1000,
 				activityCode: parseInt(row["ActivityCode (0=sedentary, 1= standing, 2=stepping)"])
 			};
@@ -51,8 +51,6 @@ function parseActivPalData(file, callback){
 			        data[i+1].unshift(newElement);
 			}
 		}
-
-		console.log(data);
 		
 		callback(data)
 	});

@@ -10,8 +10,8 @@ function createThePie(input){
 		data[input[i].activityCode].sum += input[i].interval;
 	} 
 
-	var width = 960,
-	    height = 500,
+	var width = 250,
+	    height = 250,
 	    radius = Math.min(width, height) / 2;
 	
 	var color = d3.scale.ordinal()
@@ -41,9 +41,4 @@ function createThePie(input){
 	      .attr("d", arc)
 	      .style("fill", function(d) { return color(d.data.activityCode); });
 
-	 g.append("text")
-      .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
-      .attr("dy", ".35em")
-      .style("text-anchor", "middle")
-      .text(function(d) { return d.data.activityCode; });
 }
