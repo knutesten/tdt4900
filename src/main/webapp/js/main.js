@@ -1,5 +1,6 @@
-parseActivPalData("../csv/test.csv", function(d){
-	
-	//console.log(d);
-	createThePie(d);
+var test = [];
+
+parseActivPalData("../csv/test2.csv", function(d){
+	test = d;	
+	//createThePie(d);
 });

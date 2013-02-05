@@ -9,7 +9,6 @@ function createThePie(input){
 		var sum = input[i].interval;
 		data[input[i].activityCode].sum += input[i].interval;
 	} 
-	console.log(data);
 
 	var width = 960,
 	    height = 500,
@@ -32,7 +31,6 @@ function createThePie(input){
 	  .append("g")
 	    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-	console.log(pie(data));
 
 	var g = svg.selectAll(".arc")
 	      .data(pie(data))
