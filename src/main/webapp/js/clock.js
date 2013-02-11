@@ -61,18 +61,19 @@ function clock(data){
         }
         
         function splitData(data){
-                var am = [];
-                var pm = [];
+                var am = [], pm = [], element;
                 
                 for(var i = 0; i < data.length; i++){
-                        if(data[i].time.getHours() >= 12){
-                                pm.push(data[i]);
+                        element = $.extend(true, {}, data[i]);
+                        element.time = new Date(element.time.getTime());
+                        if(element.time.getHours() >= 12){
+                                pm.push(element);
                         }else{
-                                am.push(data[i]);
+                                am.push(element);
                         }
                 }
                 
-                var hour = 3600*1000, element, newElement, time, timeBeforePm;
+                var hour = 3600*1000, newElement, time, timeBeforePm;
                 element = am.pop();
 		time = element.time.getTime();
 		//GMT +1
