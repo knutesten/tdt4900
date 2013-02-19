@@ -20,8 +20,7 @@ function stick(input){
 	for(i = 0; i < data.length; i++){
 		div2 = div.append("div")
 		   .style("margin-left", function(){ return i===0?"0":"10px"; })
-		   .style("display", "inline-block")
-		   .style("vertical-align", "bottom");
+		   .style("display", "inline-block");
 		
 		div2.append("img")
 		   .attr("height", height*data[i].sum/allSum)
