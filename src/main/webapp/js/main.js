@@ -1,5 +1,5 @@
 $(function() {
-        parseActivPalData("../csv/test2.csv", function(data){
-		stick(data[1]);
+        parseActivPalData("../csv/dean.csv", function(data){
+		box(data[1]);
         });
 });
