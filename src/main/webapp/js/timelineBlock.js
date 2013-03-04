@@ -44,7 +44,7 @@ function timelineBlock(input){
 		   .text(i<10?"0"+i:i+"");
 	}
 
-	//Create 24 hour blocks with percentage of active behavior (standing or walking).
+	//Returns a list of 24 fractions. Each fraction represents the amount of activity each hour, blocks[0] represents 00, blocks[1] represents 01 and so forth.
         function createBlocks(data){
 	 	var currHour = data[0].time.getHours(),
 		    hour = 3600*1000,
