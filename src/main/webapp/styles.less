@@ -1,3 +1,63 @@
-.defaultbar{
-  fill: gray;
+.rounded-corners (@radius: 20px, @stroke: 2px solid){
+	border: @stroke;
+	border-radius: @radius;
+}
+
+#mainBody{
+	font-size:25px;
+}
+
+.smileImg{
+	display:inline-block;
+	vertical-align:middle;
+	margin-right: 10px;
+	padding:0;
+}
+
+.dayList{
+	padding:0;
+	display:inline-block;
+}
+
+//The Container for all good day elements
+#goodMainDiv{
+
+}
+
+
+.goodLi{
+	padding:0 10px;
+	list-style:none;
+	display:inline-block;
+	background-color: green;
+	margin: 10px;
+	.rounded-corners
+}
+
+//The Container for all ok day elements
+#okMainDiv{
+	clear: both;
+}
+
+.okLi{
+	padding:0 10px;
+	list-style:none;
+	display:inline-block;
+	background-color: yellow;
+	margin: 10px;
+	.rounded-corners
+	
+}
+//The Container for all bad day elements
+#badMainDiv{
+	clear: both;
+}
+
+.badLi{
+	padding:0 10px;
+	list-style:none;
+	display:inline-block;
+	background-color: red;
+	margin: 10px;
+	.rounded-corners
 }
