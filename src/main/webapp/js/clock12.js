@@ -1,5 +1,5 @@
 var test;
-function clock(data){
+function clock12(data){
         data = splitData(data);
         
         for(var i = 0; i < data.length; i++){
