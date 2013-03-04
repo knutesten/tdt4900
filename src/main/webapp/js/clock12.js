@@ -1,5 +1,5 @@
 var test;
-function clock(data){
+function clock12(data){
         data = splitData(data);
         
         for(var i = 0; i < data.length; i++){
@@ -53,7 +53,8 @@ function clock(data){
                
                arc.outerRadius(radius*2-15);
                clock.append("text")
-                      .attr("transform", function(d) {console.log(arc.centroid(d)); return "translate(" + arc.centroid(d) + ")"; })
+                      .attr("transform", function(d) {
+			      return "translate(" + arc.centroid(d) + ")"; })
                       .attr("dy", ".35em")
                       .style("text-anchor", "middle")
                       .text(function(d) {return d.label; });
