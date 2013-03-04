@@ -1,4 +1,4 @@
-﻿function smileyweek(input) {
+﻿function smileyWeek(input) {
 
     var height = 500;
     var days = new Array();
