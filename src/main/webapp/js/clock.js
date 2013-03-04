@@ -53,7 +53,8 @@ function clock(data){
                
                arc.outerRadius(radius*2-15);
                clock.append("text")
-                      .attr("transform", function(d) {console.log(arc.centroid(d)); return "translate(" + arc.centroid(d) + ")"; })
+                      .attr("transform", function(d) {
+			      return "translate(" + arc.centroid(d) + ")"; })
                       .attr("dy", ".35em")
                       .style("text-anchor", "middle")
                       .text(function(d) {return d.label; });
