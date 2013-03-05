@@ -1,7 +1,7 @@
 var test;
 function clock24(data){
-	var width = 250,
-	    height = 250,
+	var width = 400,
+	    height = 400,
 	    radius = Math.min(width, height) / 2;
 
 	var color = d3.scale.ordinal().domain([0,1,2])
