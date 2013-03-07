@@ -1,27 +1,11 @@
 ﻿function smileyWeek(input) {
-
     var height = 500;
     var days = new Array();
-    var upperTime = 61115600;
-    var lowerTime = 60115600;
 
     //Support method to get the name day
     function getDayName(number) {
         var weekday = ["Søndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag"];
         return weekday[number];
-    }
-
-    //Algorithm used to categorize each day. SUPER ADVANCED!
-    function setCategory(time) {
-        if (time < lowerTime) {
-            return 0;
-        }
-        else if (time > upperTime) {
-            return 2;
-        }
-        else {
-            return 1;
-        }
     }
 
     var mdiv = d3.select('body').append('div').attr("id", "mainBody");
@@ -54,7 +38,7 @@
                 days[i].inactiveSum += input[i][j].interval;
             }
         }
-        days[i].category = setCategory(days[i].inactiveSum);
+        days[i].category = classifyDay(days[i].inactiveSum);
     }
 
     //Go through the days and create them in the appropriate category
