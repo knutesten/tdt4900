@@ -1,3 +1,5 @@
+﻿
+//--------------------Start of CSS for smileyWeek----------------------
 .rounded-corners (@radius: 20px, @stroke: 2px solid){
 	border: @stroke;
 	border-radius: @radius;
@@ -20,10 +22,6 @@
 	display:inline-block;
 }
 
-.detailDayList{
-
-}
-
 //The Container for all good day elements
 #goodMainDiv{
 
@@ -41,7 +39,6 @@
 
 //The Container for all ok day elements
 #okMainDiv{
-	clear: both;
 }
 
 .okLi{
@@ -55,7 +52,6 @@
 }
 //The Container for all bad day elements
 #badMainDiv{
-	clear: both;
 }
 
 .badLi{
@@ -65,4 +61,47 @@
 	background-color: red;
 	margin: 10px;
 	.rounded-corners
+}
+
+//--------------------End of CSS for smileyWeek----------------------
+
+.detailDayList{
+	padding:0;
+	display:inline-block;
+}
+
+.detailedLi{
+	padding:0 10px;
+	list-style:none;
+	margin: 10px;
+	display:inline-block;
+
+}
+
+.detailedText{
+	display:box;
+	text-align:center;
+	margin: 2;
+}
+
+.detailedDayContainer{
+		display:inline-block;
+}
+
+.goodDaySvg{
+	fill: black;
+	stroke-width: 5;
+	stroke: green;
+}
+
+.okDaySvg{
+	fill: black;
+	stroke-width: 5;
+	stroke: yellow;
+}
+
+.badDaySvg{
+	fill: black;
+	stroke-width: 5;
+	stroke: red;
 }
