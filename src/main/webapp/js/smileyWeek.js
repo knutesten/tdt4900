@@ -7,6 +7,7 @@
     var oday = mdiv.append('div').attr("id", "okMainDiv");
     var bday = mdiv.append('div').attr("id", "badMainDiv");
 
+
     gday.append("img")
         .attr("src", "fig/gday.svg")
         .attr("height", height / 3)
@@ -25,35 +26,29 @@
     bday.append("ol").attr("class", "dayList");
 
     //Extract each day, sum the sedentary time, and set the category based on the sedentary time
-    for (i = 0; i < input.length; i++) {
-        days[i] = { day: getDayName(input[i][0].time.getDay()), inactiveSum: 0, category: 0 }
-        for (j = 0; j < input[i].length; j++) {
-            if (input[i][j].activityCode === 0) {
-                days[i].inactiveSum += input[i][j].interval;
-            }
-        }
-        days[i].category = classifyDay(days[i].inactiveSum);
+    for (var i = 0; i < input.length; i++) {
+        days[i] = { day: getDayName(input[i][0].time.getDay()), category: classifyDay(input[i]) };
     }
 
     //Go through the days and create them in the appropriate category
-    for (i = 0; i < days.length; i++) {
+    for (var i = 0; i < days.length; i++) {
         switch (days[i].category) {
             case 0:
-                bdiv = bday.append("li")
-                           .attr("class", "badLi")
-                           .text(days[i].day);
+                bday.append("li")
+                    .attr("class", "badLi")
+                    .text(days[i].day);
                 break;
 
             case 1:
-                odiv = oday.append("li")
-                           .attr("class", "okLi")
-                           .text(days[i].day);
+                oday.append("li")
+                    .attr("class", "okLi")
+                    .text(days[i].day);
                 break;
 
             case 2:
-                gdiv = gday.append("li")
-                           .attr("class", "goodLi")
-                           .text(days[i].day);
+                gday.append("li")
+                    .attr("class", "goodLi")
+                    .text(days[i].day);
                 break;
 
         }
