@@ -2,12 +2,6 @@
     var height = 500;
     var days = new Array();
 
-    //Support method to get the name day
-    function getDayName(number) {
-        var weekday = ["Søndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag"];
-        return weekday[number];
-    }
-
     var mdiv = d3.select('body').append('div').attr("id", "mainBody");
     var gday = mdiv.append('div').attr("id", "goodMainDiv");
     var oday = mdiv.append('div').attr("id", "okMainDiv");
