@@ -15,7 +15,7 @@ function createBlocks(data){
         }
 
         //If the current time interval will exceed the current hour it should be spilt.
-        if(sum + interval >= hour){
+        if(sum + interval >= hour || data.length-1 === i){
             timeLeft = hour - sum;
             if(active){
                 sumActive += timeLeft;
@@ -23,18 +23,6 @@ function createBlocks(data){
             blocks[currHour] = sumActive/hour;
             interval -= timeLeft;
         
-        
-            //If the last entry is an interval longer than 1 hour it should be added.
-            if(i==data.length-1&&interval<hour){
-                currHour++;
-                sumActive = 0;
-                if(active){
-                    sumActive = interval
-                }
-                blocks[currHour] = sumActive/hour;
-                break;
-            }
-            
             //If the interval goes over an hour they should still be spilt.
             while(interval > hour){
                 currHour++;
@@ -46,6 +34,17 @@ function createBlocks(data){
                 interval -= hour;
             }
 
+            //If the last entry is an interval longer than 1 hour it should be added.
+            if(i==data.length-1&&interval>hour/2&&currHour<23){
+                currHour++;
+                sumActive = 0;
+                if(active){
+                    sumActive = interval
+                }
+                blocks[currHour] = sumActive/hour;
+                break;
+            }
+            
             currHour++;
             sumActive = 0;
             if(active){
