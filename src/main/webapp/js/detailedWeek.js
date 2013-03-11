@@ -6,6 +6,7 @@
     var days = new Array();
     var cheight = sheight / 4;
     var cwidth = swidth / 6;
+    var strokePadding = 10;
 
     var count = 0;
 
@@ -39,6 +40,21 @@
             days[i] = { day: getDayName(input[i][0].time.getDay()), category: classifyDay(input[i]), blocks: createBlocks(input[i])};
     }
 
+   for (var i = 0; i < days.length; i++) {
+        switch (days[i].category) {
+            case 0:
+                drawDay(bul, days[i]);
+                break;
+            case 1:
+                drawDay(oul, days[i]);
+                break;
+
+            case 2:
+                drawDay(gul, days[i]);
+                break;
+        }
+    }
+
     function drawDay(list, day) {
         li = list.append("li")
                  .attr("class", "detailedLi")
@@ -46,21 +62,28 @@
         li.append("p").attr("class", "detailedText").text(day.day);
 
         svg = li.append("svg")
-                .attr("width", swidth)
-                .attr("height", sheight);
+                .attr("width", swidth +strokePadding)
+                .attr("height", sheight + strokePadding);
 
         svg.append("rect")
            .attr("class", setDayStyle(day))
            .attr("x", 0)
            .attr("y", 0)
-           .attr("width", swidth)
-           .attr("height", sheight);
+            //gjøre disse relative i forhold til swidth og sheight?
+           .attr("rx", 20)
+           .attr("ry", 20)
+           .attr("width", swidth + strokePadding)
+           .attr("height", sheight + strokePadding)
+           .style("stroke-width", strokePadding);
 
         for (var i = 0; i < 4; i++) {
             for (var j = 0; j < 6; j++) {
                 svg.append("rect")
-                   .attr("x", j * cwidth)
-                   .attr("y", i * cheight)
+                   .attr("x", (j * cwidth) + (strokePadding / 2))
+                   .attr("y", (i * cheight) + (strokePadding / 2))
+                    //Vi burde gjør denne verdien relativ til cwidth og cheight?
+                   .style("stroke-width", 2)
+                   .style("stroke", "black")
                    .attr("width", cwidth)
                    .attr("height", cheight)
                    .attr("fill", color(day.blocks[count]));
@@ -82,5 +105,5 @@
         }
     }
 
-    drawDay(gul, days[1]);
+
 }
