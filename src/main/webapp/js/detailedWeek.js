@@ -7,6 +7,7 @@
     var cheight = sheight / 4;
     var cwidth = swidth / 6;
     var strokePadding = 10;
+    var hourStrokePadding = 2;
 
     var count = 0;
 
@@ -82,11 +83,18 @@
                    .attr("x", (j * cwidth) + (strokePadding / 2))
                    .attr("y", (i * cheight) + (strokePadding / 2))
                     //Vi burde gjør denne verdien relativ til cwidth og cheight?
-                   .style("stroke-width", 2)
+                   .style("stroke-width", hourStrokePadding)
                    .style("stroke", "black")
                    .attr("width", cwidth)
                    .attr("height", cheight)
                    .attr("fill", color(day.blocks[count]));
+
+                svg.append("text")
+                   .attr("x", (j * cwidth) + (strokePadding / 2) + hourStrokePadding)
+                   .attr("y", (i * cheight) + (strokePadding / 2) + cheight - hourStrokePadding)
+                   .attr("font-size", cwidth/2)
+                   .text(count + 1);
+
                 count++;
             }
 
