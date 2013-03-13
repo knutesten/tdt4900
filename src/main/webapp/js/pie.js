@@ -1,5 +1,5 @@
 var sumbi = 0;
-function pie(input){
+function pie(container, input){
 	var data = [];
 	var label = ["Sitting/Lying", "Standing", "Walking"];
 	for(var i = 0; i < 3; i++){
@@ -33,7 +33,7 @@ function pie(input){
 	    .sort(null)
 	    .value(function(d) { return d.sum; });
 	
-	var svg = d3.select("body").append("svg")
+	var svg = d3.select(container).append("svg")
 	    .attr("width", width)
 	    .attr("height", height);
         

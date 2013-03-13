@@ -1,4 +1,4 @@
-﻿function detailedWeek(input) {
+﻿function detailedWeek(container, input) {
 
     var height = 800;
     var sheight = 100;
@@ -13,7 +13,7 @@
 
     var color = d3.scale.linear().domain([0,1]).range(["red", "green"])
 
-    var mdiv = d3.select('body').append('div').attr("id", "mainBody");
+    var mdiv = d3.select(container).append('div').attr("id", "mainDiv");
     var gday = mdiv.append('div').attr("id", "goodMainDiv");
     var oday = mdiv.append('div').attr("id", "okMainDiv");
     var bday = mdiv.append('div').attr("id", "badMainDiv");
