@@ -1,4 +1,4 @@
-function timelineBlock(input){
+function timelineBlock(container, input){
     var blocks = createBlocks(input);
     
     var color = d3.scale.linear().domain([0,1]).range(["red", "green"]),
@@ -17,7 +17,7 @@ function timelineBlock(input){
         fontColor = "white",
         fontColor = "white";
 
-    var div = d3.select("body")
+    var div = d3.select(container)
         .append("div")
         .style("position", "relative")
         .style("margin-top", margin.top)

@@ -1,4 +1,4 @@
-function timeline(data){
+function timeline(container, data){
         var millis = 1000*3600;
         var start = data[0].time;
         var timeOffset = new Date(start.getFullYear(), start.getMonth(), start.getDate()).getTime();
@@ -13,7 +13,7 @@ function timeline(data){
         var color = d3.scale.linear().domain([-1, 0,1,2])
 	    .range(["white", "lightgray", "yellow", "green"]);
 	    
-        var svg = d3.select('body').append('svg')
+        var svg = d3.select(container).append('svg')
 	    .attr("width", width+ 1000)
 	    .attr("height", height);
 	    

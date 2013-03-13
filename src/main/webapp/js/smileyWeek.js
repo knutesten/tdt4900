@@ -1,8 +1,12 @@
-﻿function smileyWeek(input) {
+﻿function smileyWeek(container, input) {
+    var tool = input;
     var height = 500;
     var days = new Array();
 
-    var mdiv = d3.select('body').append('div').attr("id", "mainBody");
+    var tooltip = 0;
+
+    var mdiv = d3.select(container).append('div').attr("id", "smileyDiv");
+
     var gday = mdiv.append('div').attr("id", "goodMainDiv");
     var oday = mdiv.append('div').attr("id", "okMainDiv");
     var bday = mdiv.append('div').attr("id", "badMainDiv");
@@ -36,7 +40,10 @@
             case 0:
                 bul.append("li")
                     .attr("class", "badLi")
+                    .on("mouseover", testOver)
+                    .on("mouseout", testOut)
                     .text(days[i].day);
+                    
                 break;
 
             case 1:
@@ -52,5 +59,26 @@
                 break;
 
         }
+    }
+
+    function testOver() {
+        tooltip = d3.select(container).append("div")
+.attr("class", "tooltip")
+.style("opacity", 0);
+
+        tooltip.transition()
+               .duration(200)
+               .style("opacity", .9)
+               .style("left", (d3.event.pageX) + "px")
+               .style("top", (d3.event.pageY - 28) + "px");
+        pie(tooltip, input[2]);
+    }
+
+    function testOut() {
+        tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
+
+        tooltip.remove();
     }
 }

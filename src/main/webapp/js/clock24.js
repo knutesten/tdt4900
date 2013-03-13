@@ -1,5 +1,5 @@
 var test;
-function clock24(data){
+function clock24(container, data){
 	var width = 400,
 	    height = 400,
 	    radius = Math.min(width, height) / 2;
@@ -15,7 +15,7 @@ function clock24(data){
 	    .sort(null)
 	    .value(function(d) { return d.interval; });
 
-	var svg = d3.select("body").append("svg")
+	var svg = d3.select(container).append("svg")
 	    .attr("width", width)
 	    .attr("height", height)
             .append("g")

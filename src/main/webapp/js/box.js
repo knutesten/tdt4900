@@ -1,4 +1,4 @@
-function box(input){
+function box(container, input){
 	var pictureMargin = 5,
 	    color = d3.scale.category20(),
 	    boxBorderWidth = 2,
@@ -33,7 +33,7 @@ function box(input){
 				return d.sum;
 			});
 			 
-	var div = d3.select('body').append('div')
+	var div = d3.select(container).append('div')
 		.style("position", "relative")
 		.style("width", (width) +boxMargin+ "px")
 		.style("height", (height)+ boxMargin + "px")
