@@ -11,8 +11,14 @@
 
     var count = 0;
 
-    var color = d3.scale.linear().domain([0,1]).range(["red", "green"])
-
+    //var color = d3.scale.linear().domain([0,0.5,1]).range(["","orange", "red"])
+    var color = function(d){
+        if(d!=undefined){
+            return d3.rgb(255,255-255*d, 0);
+        }else{
+            return "black";
+        }
+    }
     var mdiv = d3.select(container).append('div').attr("id", "mainDiv");
     var gday = mdiv.append('div').attr("id", "goodMainDiv");
     var oday = mdiv.append('div').attr("id", "okMainDiv");
