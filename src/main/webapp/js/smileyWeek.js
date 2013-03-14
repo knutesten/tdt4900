@@ -40,10 +40,11 @@
             case 0:
                 bul.append("li")
                     .attr("class", "badLi")
-                    .on("mouseover", testOver)
+                    .on("mouseover", function () {
+                        testOver(days[i])
+                    })
                     .on("mouseout", testOut)
-                    .text(days[i].day);
-                    
+                    .text(days[i].day);                   
                 break;
 
             case 1:
@@ -61,7 +62,10 @@
         }
     }
 
-    function testOver() {
+   
+
+
+    function testOver(day) {
         tooltip = d3.select(container).append("div")
 .attr("class", "tooltip")
 .style("opacity", 0);
@@ -71,7 +75,7 @@
                .style("opacity", .9)
                .style("left", (d3.event.pageX) + "px")
                .style("top", (d3.event.pageY - 28) + "px");
-        pie(tooltip, input[2]);
+        pie(".tooltip", input[day]);
     }
 
     function testOut() {
