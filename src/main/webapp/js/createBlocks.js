@@ -3,7 +3,7 @@ function createBlocks(data){
     var currHour = data[0].time.getHours(),
         hour = 3600*1000,
         sumActive = 0,
-        blocks = []
+        blocks = [],
         inteval = 0,
         sum = data[0].time.getTime()%hour,
         active = false;
