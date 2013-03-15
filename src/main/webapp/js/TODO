@@ -1,0 +1,19 @@
+Optimalization
+    Parse data only once
+    Transform data only once
+    Extract methods
+    Make sure the data object is not changed
+
+Tooltips
+    Add tooltips to selected charts
+
+Highlighting
+    Add highlighting to selected charts
+    Add checkbox for activating/deactivating highlighting
+ 
+Colours
+    Find standard colours
+    Create a standards colour function
+  
+Menu
+    Create menu system to easily switch between charts

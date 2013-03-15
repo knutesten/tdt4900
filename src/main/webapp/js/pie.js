@@ -2,6 +2,7 @@ var sumbi = 0;
 function pie(container, input){
 	var data = [];
 	var label = ["Sitting/Lying", "Standing", "Walking"];
+
 	for(var i = 0; i < 3; i++){
 		data[i] = {activityCode: i, sum: 0, activityLabel: label[i]};
 	}
@@ -11,12 +12,6 @@ function pie(container, input){
 		var sum = input[i].interval;
 		data[input[i].activityCode].sum += input[i].interval;
 	}
-	
-	console.log("sitting: " + millisToTime(data[0].sum));
-	console.log("standing: " + millisToTime(data[1].sum));
-	console.log("walking: " + millisToTime(data[2].sum));
-	
-	sumbi = data[0].sum + data[1].sum + data[2].sum;
 
 	var height = 250,
 	    width = 2*height,

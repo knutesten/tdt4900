@@ -4,26 +4,32 @@
         <meta charset="UTF-8" />
         <title>Hello world</title>
         <link rel="stylesheet/less" type="text/css" href="styles.less" />
-        <script src="http://d3js.org/d3.v3.min.js"></script>
-        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-        <script src="http://code.jquery.com/jquery-migrate-1.1.0.min.js"></script>
-        <script src="less.js" type="text/javascript"></script>  
-        <script type="text/javascript" src="js/timelineBlock.js"></script>
-        <script type="text/javascript" src="js/pie.js"></script>
-        <script type="text/javascript" src="js/parse.js"></script>
-        <script type="text/javascript" src="js/detailedWeek.js"></script>
-        <script type="text/javascript" src="js/getDayName.js"></script>
-        <script type="text/javascript" src="js/timeline.js"></script>
-        <script type="text/javascript" src="js/bubbleChart.js"></script>
-        <script type="text/javascript" src="js/box.js"></script>
-        <script type="text/javascript" src="js/clock12.js"></script>
-        <script type="text/javascript" src="js/clock24.js"></script>
-        <script type="text/javascript" src="js/smileyWeek.js"></script>
-        <script type="text/javascript" src="js/createBlocks.js"></script>
-        <script type="text/javascript" src="js/classifyDay.js"></script>
-        <script type="text/javascript" src="js/getDayName.js"></script>
-        <script type="text/javascript" src="js/main.js"></script>
     </head>
-    <body id="mainBody">
+    <body>
+        <ul data-bind="foreach: charts" id="nav">
+            <li data-bind="text: name, click: $root.drawGraph"></li> 
+        </ul>
+        <div id="vis"></div>
     </body>
+    <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.1.0.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/knockout/2.2.0/knockout-min.js"></script>
+    <script type="text/javascript" src="less.js" type="text/javascript"></script>  
+    <script type="text/javascript" src="js/timelineBlock.js"></script>
+    <script type="text/javascript" src="js/pie.js"></script>
+    <script type="text/javascript" src="js/parse.js"></script>
+    <script type="text/javascript" src="js/detailedWeek.js"></script>
+    <script type="text/javascript" src="js/getDayName.js"></scriptj>
+    <script type="text/javascript" src="js/timeline.js"></script>
+    <script type="text/javascript" src="js/bubbleChart.js"></script>
+    <script type="text/javascript" src="js/box.js"></script>
+    <script type="text/javascript" src="js/clock12.js"></script>
+    <script type="text/javascript" src="js/clock24.js"></script>
+    <script type="text/javascript" src="js/smileyWeek.js"></script>
+    <script type="text/javascript" src="js/createBlocks.js"></script>
+    <script type="text/javascript" src="js/classifyDay.js"></script>
+    <script type="text/javascript" src="js/getDayName.js"></script>
+    <script type="text/javascript" src="js/data.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>   
 </html>

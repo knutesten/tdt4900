@@ -1,5 +1,5 @@
-function timelineBlock(container, input){
-    var blocks = createBlocks(input);
+function timelineBlock(container, data){
+    var blocks = data.getWeekBlocks()[1];
     
     var color = d3.scale.linear().domain([0,1]).range(["red", "green"]),
         width = 1000,
