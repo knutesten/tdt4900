@@ -1,5 +1,6 @@
 var testing;
-function bubbleChart(container, data){ var data = combineWalkInterval(data);
+function bubbleChart(container, data){ 
+    var data = combineWalkInterval(data);
     testing = data;
     var width = 1000,
         height = 500;

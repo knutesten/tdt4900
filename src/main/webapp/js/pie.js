@@ -1,77 +1,101 @@
 var sumbi = 0;
-function pie(container, input){
-	var data = [];
-	var label = ["Sitting/Lying", "Standing", "Walking"];
+function pie(container, data){
+    var weekSummed = data.getWeekSummed();
+    var isWeekView = true;
+     
+    var height = 250,
+        width = 2*height,
+        radius = Math.min(width, height) / 2;
+    
+    var color = d3.scale.ordinal()
+        .range(["#98abc5", "#a05d56", "#ff8c00"]);
+   
+    var container = d3.select(container)
+        .append("div")
+        .style("width", width + "px");
 
-	for(var i = 0; i < 3; i++){
-		data[i] = {activityCode: i, sum: 0, activityLabel: label[i]};
-	}
-	
-	for(var i = 0; i< input.length; i++){
-		var a = input.activityCode;
-		var sum = input[i].interval;
-		data[input[i].activityCode].sum += input[i].interval;
-	}
+    container 
+        .append("div")
+        .text("Switch view.")
+        .style("margin-bottom", 30 + "px")
+        .on("click", switchView);
 
-	var height = 250,
-	    width = 2*height,
-	    radius = Math.min(width, height) / 2;
-	
-	var color = d3.scale.ordinal()
-	    .range(["#98abc5", "#a05d56", "#ff8c00"]);
-	
-	var arc = d3.svg.arc()
-	    .outerRadius(radius - 10)
-	    .innerRadius(0);
-	
-	var pie = d3.layout.pie()
-	    .sort(null)
-	    .value(function(d) { return d.sum; });
-	
-	var svg = d3.select(container).append("svg")
-	    .attr("width", width)
-	    .attr("height", height);
+    switchView();
         
-        var pieGroup= svg
-	    .append("g")
-	    .attr("class", "pie")
-            .attr("transform", "translate(" + width / 4 + "," + height / 2 + ")");
+    function drawDay(){
+        isWeekView = false;
+        draw(weekSummed[1]);
+    }
+   
+    function drawWeek(){
+        isWeekView = true;
+        for(var j = 0; j < weekSummed.length; j++){
+            draw(weekSummed[j]);
+        }
+    }
+
+    function switchView(){
+        container.selectAll("svg").remove();
+        if(isWeekView){
+            drawDay();
+        }else{
+            drawWeek();
+        }
+    }
+    
+    function draw(data){
+        var arc = d3.svg.arc()
+            .outerRadius(radius - 10)
+            .innerRadius(0);
+        
+        var pie = d3.layout.pie()
+            .sort(null)
+            .value(function(d) { return d.sum; });
+        
+        var svg = container.append("svg")
+            .attr("width", width)
+            .attr("height", height);
             
-	var g = pieGroup.selectAll(".arc")
-	      .data(pie(data))
-	    .enter().append("g")
-	      .attr("class", "arc");
-	
-	g.append("path")
-	      .attr("d", arc)
-	      .style("fill", function(d) { return color(d.data.activityCode); });
-	
-	var legend = svg
-	        .append("g")
-	        .attr("class", "legend")
-	        .attr("transform", "translate(" + width/2 + "," + height/9 +")");
-	
-	   legend = legend.selectAll(".legend_entry")
-	        .data(data)
-	        .enter()
-	        .append("g")
-	        .attr("class", "legend_entry");
-	        
-	   legend.append("rect")
-	        .attr("x", 0)
-	        .attr("y", function(d){return d.activityCode*height/9;})
-	        .attr("width", height/10)
-	        .attr("height", height/10)
-	        .style("fill", function(d){return color(d.activityCode)});
-	   
-	   legend.append("text")
-	        .attr("x", height/10+10)
-	        .attr("y", function(d){return (d.activityCode)*height/9 + height/18;})
-                .attr("dy", ".20em")
-	        .text(function(d){return d.activityLabel;});
-	        
-       
+            var pieGroup= svg
+            .append("g")
+            .attr("class", "pie")
+                .attr("transform", "translate(" + width / 4 + "," + height / 2 + ")");
+                
+        var g = pieGroup.selectAll(".arc")
+              .data(pie(data))
+            .enter().append("g")
+              .attr("class", "arc");
+        
+        g.append("path")
+              .attr("d", arc)
+              .style("fill", function(d) { return color(d.data.activityCode); });
+        
+        var legend = svg
+                .append("g")
+                .attr("class", "legend")
+                .attr("transform", "translate(" + width/2 + "," + height/9 +")");
+        
+           legend = legend.selectAll(".legend_entry")
+                .data(data)
+                .enter()
+                .append("g")
+                .attr("class", "legend_entry");
+                
+           legend.append("rect")
+                .attr("x", 0)
+                .attr("y", function(d){return d.activityCode*height/9;})
+                .attr("width", height/10)
+                .attr("height", height/10)
+                .style("fill", function(d){return color(d.activityCode)});
+           
+           legend.append("text")
+                .attr("x", height/10+10)
+                .attr("y", function(d){return (d.activityCode)*height/9 + height/18;})
+                    .attr("dy", ".20em")
+                .text(function(d){return d.activityLabel;});
+    }
 }
+
  function millisToTime(time){
                 var sec, min, hou;
                 time = Math.round(time/1000);

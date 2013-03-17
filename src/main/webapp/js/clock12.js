@@ -1,11 +1,46 @@
 var test;
 function clock12(container, data){
-        data = splitData(data);
-        
+    var width = 250,
+        height = 250;
+    var week = data.getWeek12Hours();
+    var isWeekView = true;
+    
+    var container = d3.select(container)
+        .append("div")
+        .style("width", width*2 + "px");
+    
+    container 
+        .append("div")
+        .text("Switch view.")
+        .style("margin-bottom", 30 + "px")
+        .on("click", switchView);
+
+    switchView();
+     
+    function drawDay(){
+        isWeekView = false;
+        draw(week[1]);
+    }
+   
+    function drawWeek(){
+        isWeekView = true;
+        for(var j = 0; j < week.length; j++){
+            draw(week[j]);
+        }
+    }
+
+    function switchView(){
+        container.selectAll("svg").remove();
+        if(isWeekView){
+            drawDay();
+        }else{
+            drawWeek();
+        }
+    }
+       
+    function draw(data){ 
         for(var i = 0; i < data.length; i++){
-	        var width = 250,
-	            height = 250,
-	            radius = Math.min(width, height) / 2;
+	        var radius = Math.min(width, height) / 2;
 	
 	        var color = d3.scale.ordinal().domain([0,1,2])
 	            .range(["lightgray", "yellow", "green"]);
@@ -18,16 +53,16 @@ function clock12(container, data){
 	            .sort(null)
 	            .value(function(d) { return d.interval; });
 	
-	        var svg = d3.select(container).append("svg")
+	        var svg = container.append("svg")
 	            .attr("width", width)
 	            .attr("height", height)
-	          .append("g")
+	            .append("g")
 	            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 	        var g = svg.selectAll(".arc")
-	              .data(pie(data[i]))
+	            .data(pie(data[i]))
 	            .enter().append("g")
-	              .attr("class", "arc");
+	            .attr("class", "arc");
 	
 	        g.append("path")
 	              .attr("d", arc)
@@ -60,4 +95,5 @@ function clock12(container, data){
                       .text(function(d) {return d.label; });
                 
         }
+    }
 }
