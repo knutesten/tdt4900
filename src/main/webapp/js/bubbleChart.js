@@ -1,7 +1,5 @@
-var testing;
 function bubbleChart(container, data){ 
-    var data = combineWalkInterval(data);
-    testing = data;
+    var data = data.getWeek()[1];
     var width = 1000,
         height = 500;
 
@@ -116,28 +114,5 @@ function bubbleChart(container, data){
             d.y = d.y + (center.y - d.y) * (damper + 0.02) * alpha;
         }
     }
-
-    function combineWalkInterval(data){
-        var newData = [];   
-        var prevElement = $.extend(true, {}, data[0]),
-            element;
-        for(var i = 1; i < data.length; i++){
-            element = $.extend(true, {}, data[i]);
-            if(element.activityCode === 2 && prevElement.activityCode === 2){
-                prevElement.interval += element.interval; 
-            } else{
-                newData.push(prevElement);
-                prevElement = element;
-            }
-        }
-        newData.push(prevElement);
-
-        return newData;
-    }
-
-    start = function(){
-        force.start();
-    }
 }
 
-var start;
