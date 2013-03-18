@@ -6,9 +6,11 @@
         <link rel="stylesheet/less" type="text/css" href="styles.less" />
     </head>
     <body>
-        <ul data-bind="foreach: charts" id="nav">
-            <li data-bind="text: name, click: $root.drawGraph"></li> 
-        </ul>
+        <div id="nav">
+            <ul data-bind="foreach: charts">
+                <li data-bind="text: name, css: {selected: isSelected}, click: $root.drawChart"></li> 
+            </ul>
+        </div>
         <div id="vis"></div>
     </body>
     <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>

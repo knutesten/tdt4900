@@ -1,4 +1,46 @@
-﻿
+﻿//--------------------Start of CSS for Menu ---------------------------
+body {
+    background: white;
+}
+
+#nav {
+    background:inherit;
+    float:left;
+    font-size: 1em;
+    margin-right: 30px;
+    padding: 0;
+    font-family: "Arial";
+
+    ul {
+        background:inherit;
+        margin:0;
+        padding:0;
+    }
+
+    li {
+        color: cornflowerblue;
+        background:white;
+        padding: 10px;
+        list-style: none;
+        margin: 3px;
+
+        &.selected {
+            color: black;
+        }
+
+        &:hover {
+            background: cornflowerblue;
+            color: white;
+            position:relative;
+            cursor:default;
+        }
+    }
+}
+
+#vis {
+    float:left;
+}
+
 //--------------------Start of CSS for smileyWeek----------------------
 
 div.tooltip {   
@@ -14,25 +56,25 @@ div.tooltip {
   pointer-events: none;         
 }
 .rounded-corners (@radius: 20px, @stroke: 2px solid){
-	border: @stroke;
-	border-radius: @radius;
+    border: @stroke;
+    border-radius: @radius;
 }
 
 #smileyDiv{
-	font-size:20px;
-	font-family: Cambria, Estrangelo Edessa, Courier New, Segoe UI, Tunga, Lucida Sans, sans-serif;
+    font-size:20px;
+    font-family: Cambria, Estrangelo Edessa, Courier New, Segoe UI, Tunga, Lucida Sans, sans-serif;
 }
 
 .smileImg{
-	display:inline-block;
-	vertical-align:middle;
-	margin-right: 10px;
-	padding:0;
+    display:inline-block;
+    vertical-align:middle;
+    margin-right: 10px;
+    padding:0;
 }
 
 .dayList{
-	padding:0;
-	display:inline-block;
+    padding:0;
+    display:inline-block;
 }
 
 //The Container for all good day elements
@@ -42,11 +84,11 @@ div.tooltip {
 
 
 .goodLi{
-	padding:0 10px;
-	list-style:none;
-	display:inline-block;
-	margin: 10px;
-	.rounded-corners
+    padding:0 10px;
+    list-style:none;
+    display:inline-block;
+    margin: 10px;
+    .rounded-corners
 }
 
 //The Container for all ok day elements
@@ -54,62 +96,62 @@ div.tooltip {
 }
 
 .okLi{
-	padding:0 10px;
-	list-style:none;
-	display:inline-block;
-	margin: 10px;
-	.rounded-corners
-	
+    padding:0 10px;
+    list-style:none;
+    display:inline-block;
+    margin: 10px;
+    .rounded-corners
+    
 }
 //The Container for all bad day elements
 #badMainDiv{
 }
 
 .badLi{
-	padding:0 10px;
-	list-style:none;
-	display:inline-block;
-	margin: 10px;
-	.rounded-corners
+    padding:0 10px;
+    list-style:none;
+    display:inline-block;
+    margin: 10px;
+    .rounded-corners
 }
 
 //--------------------End of CSS for smileyWeek----------------------
 
 .detailDayList{
-	padding:0;
-	display:inline-block;
-	vertical-align:middle;
+    padding:0;
+    display:inline-block;
+    vertical-align:middle;
 }
 
 .detailedLi{
-	padding:0 10px;
-	list-style:none;
-	margin: 10px;
-	display:inline-block;
+    padding:0 10px;
+    list-style:none;
+    margin: 10px;
+    display:inline-block;
 
 }
 
 .detailedText{
-	display:box;
-	text-align:center;
-	margin: 1;
+    display:box;
+    text-align:center;
+    margin: 1;
 }
 
 .detailedDayContainer{
-		display:inline-block;
+        display:inline-block;
 }
 
 .goodDaySvg{
-	fill: gray;
-	stroke: green;
+    fill: gray;
+    stroke: green;
 }
 
 .okDaySvg{
-	fill: gray;
-	stroke: yellow;
+    fill: gray;
+    stroke: yellow;
 }
 
 .badDaySvg{
-	fill: gray;
-	stroke: red;
+    fill: gray;
+    stroke: red;
 }
