@@ -5,6 +5,8 @@ function clock24(container, data){
     var week = data.getWeek();
     var isWeekView = true;
     
+    var color = new Color();
+
     var container = d3.select(container)
         .append("div")
         .style("width", width + "px");
@@ -41,9 +43,6 @@ function clock24(container, data){
     function draw(data){
         var radius = Math.min(width, height) / 2;
 
-        var color = d3.scale.ordinal().domain([0,1,2])
-            .range(["lightgray", "yellow", "green"]);
-
         var arc = d3.svg.arc()
             .outerRadius(radius - 20)
             .innerRadius(0);
@@ -65,7 +64,7 @@ function clock24(container, data){
 
         g.append("path")
               .attr("d", arc)
-              .style("fill", function(d) { return color(d.data.activityCode); });
+              .style("fill", function(d) { return color.nominal(d.data.activityCode); });
               
         var clockData = [], angle, label;
         for(var j = 0; j < 24; j++){

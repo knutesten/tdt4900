@@ -1,5 +1,5 @@
-﻿function detailedWeek(container, input) {
-
+﻿function detailedWeek(container, data) {
+    var input = data.getWeek();
     var height = 800;
     var sheight = 100;
     var swidth = 150;
@@ -10,15 +10,8 @@
     var hourStrokePadding = 2;
 
     var count = 0;
-
-    //var color = d3.scale.linear().domain([0,0.5,1]).range(["","orange", "red"])
-    var color = function(d){
-        if(d!=undefined){
-            return d3.rgb(255,255-255*d, 0);
-        }else{
-            return "black";
-        }
-    }
+    
+    var color = new Color();
     var mdiv = d3.select(container).append('div').attr("id", "mainDiv");
     var gday = mdiv.append('div').attr("id", "goodMainDiv");
     var oday = mdiv.append('div').attr("id", "okMainDiv");
@@ -93,7 +86,7 @@
                    .style("stroke", "black")
                    .attr("width", cwidth)
                    .attr("height", cheight)
-                   .attr("fill", color(day.blocks[count]));
+                   .attr("fill", color.gradient(day.blocks[count]));
 
                 svg.append("text")
                    .attr("x", (j * cwidth) + (strokePadding / 2) + hourStrokePadding)

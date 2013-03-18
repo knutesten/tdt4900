@@ -1,6 +1,8 @@
 function ViewModel(){
     var self = this;
     self.charts = ko.observableArray([
+        {name: "Ukeoversikt", draw: smileyWeek},
+        {name: "Detaljert ukeoversikt", draw: detailedWeek},
         {name: "Kakediagram", draw: pie},
         {name: "Boksdiagram", draw: box},
         {name: "Boblediagram", draw: bubbleChart},

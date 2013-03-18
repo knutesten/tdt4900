@@ -1,13 +1,13 @@
 function box(container, data){
-	var pictureMargin = 5,
-	    color = d3.scale.category20(),
-	    boxBorderWidth = 2,
-	    boxBorderColor = "black",
-	    boxMargin = 5,
-            margin = {top: 0, right: 10, bottom: 10, left: 10},
-	    width = 500 - margin.left - margin.right,
-            height = 200 - margin.top - margin.bottom
-	    backgroundColor = "white";
+    var pictureMargin = 5,
+        color = new Color(),
+        boxBorderWidth = 2,
+        boxBorderColor = "black",
+        boxMargin = 5,
+        margin = {top: 0, right: 10, bottom: 10, left: 10},
+        width = 500 - margin.left - margin.right,
+        height = 200 - margin.top - margin.bottom,
+        backgroundColor = "white";
 
     var imgPath = ["fig/sitting.svg", "fig/standing.svg", "fig/walking.svg"];
 
@@ -47,7 +47,7 @@ function box(container, data){
         }
     }
     
-    function draw(data){	
+    function draw(data){    
         data = {name: "root",
             children: data};
 
@@ -81,7 +81,7 @@ function box(container, data){
                  return imgPath[d.activityCode];
              })
              .attr("height", function(d) { 
-                 return Math.max(0, d.dy - 1) - pictureMargin - boxMargin + "px";		
+                 return Math.max(0, d.dy - 1) - pictureMargin - boxMargin + "px";       
              });
 
         function position() {
@@ -94,7 +94,7 @@ function box(container, data){
             .style("height", function(d) { 
                 return Math.max(0, d.dy - boxMargin) + "px"; })
             .style("background", function(d) { 
-                return d.name=="root"?backgroundColor:color(d.activityCode);
+                return d.name=="root"?backgroundColor:color.nominal(d.activityCode);
             })
             .style("border-style", "solid")
             .style("border-width", function(d){

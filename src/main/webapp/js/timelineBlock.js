@@ -2,7 +2,7 @@ function timelineBlock(container, data, daysToShow){
     var weekBlocks = data.getWeekBlocks();
     var isWeekView = true;
     
-    var color = d3.scale.linear().domain([0,1]).range(["red", "green"]),
+    var color = new Color(); 
         width = 700,
         height = 30,
         backgroundColor = "lightgray",
@@ -15,8 +15,7 @@ function timelineBlock(container, data, daysToShow){
         boxWidth = width/24
         boxBorderWidth = 1
         boxBorderColor = "white",
-        fontColor = "white",
-        fontColor = "white";
+        fontColor = "black";
 
     var container = d3.select(container)
         .append("div")
@@ -57,7 +56,7 @@ function timelineBlock(container, data, daysToShow){
         for(var i = 0; i < 24; i++){
             div.append("div")
                .attr("class", "timeline")
-               .style("background-color", color(blocks[i]))
+               .style("background-color", color.gradient(blocks[i]))
                .style("float", "left")
                .style("width", boxWidth - boxBorderWidth+ "px")
                .style("height", height + "px")

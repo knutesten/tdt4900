@@ -21,7 +21,7 @@ function bubbleChart(container, data){
         force,
         circles;
     
-    var color = d3.scale.category20();   
+    var color = new Color(); 
    
     var maxValue = d3.max(data, function(d) {
         return d.interval;
@@ -59,10 +59,10 @@ function bubbleChart(container, data){
             return d.cy;
         })
         .attr("fill", function(d){
-            return color(d.activityCode)
+            return color.nominal(d.activityCode)
         })
         .attr("stroke", function(d){ 
-            var col = d3.rgb(color(d.activityCode));
+            var col = d3.rgb(color.nominal(d.activityCode));
             return col.darker().darker();
         });
             

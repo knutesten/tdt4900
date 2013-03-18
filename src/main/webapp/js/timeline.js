@@ -5,10 +5,7 @@ function timeline(container, data){
    
     var width= 700, height = 30;
     
-    var color = d3.scale
-        .linear()
-        .domain([-1, 0,1,2])
-        .range(["white", "lightgray", "yellow", "green"]);
+    var color = new Color();
    
     var container = d3.select(container)
         .append("div")
@@ -67,7 +64,7 @@ function timeline(container, data){
             .attr("width", function(d){return x(d.time.getTime() +d.interval) - x(d.time);})
             .attr("y", drawNumbers?numberHeight+3:3)
             .attr("height", height)
-            .attr("fill", function(d){return color(d.activityCode);})
+            .attr("fill", function(d){return color.nominal(d.activityCode);})
 
         svg.selectAll(".ticks")
             .data(tickValues)

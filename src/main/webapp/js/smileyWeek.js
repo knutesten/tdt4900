@@ -1,9 +1,11 @@
-﻿function smileyWeek(container, input) {
-    var tool = input;
+﻿function smileyWeek(container, data) {
+    var input = data.getWeek();
     var height = 500;
     var days = new Array();
 
     var tooltip = 0;
+   
+    var color = new Color();
 
     var mdiv = d3.select(container).append('div').attr("id", "smileyDiv");
 
@@ -39,6 +41,7 @@
         switch (days[i].category) {
             case 0:
                 bul.append("li")
+                    .style("background-color", color.nominal(0))
                     .attr("class", "badLi")
                     .on("mouseover", function () {
                         testOver(days[i])
@@ -49,12 +52,14 @@
 
             case 1:
                 oul.append("li")
+                    .style("background-color", color.nominal(1))
                     .attr("class", "okLi")
                     .text(days[i].day);
                 break;
 
             case 2:
                 gul.append("li")
+                    .style("background-color", color.nominal(2))
                     .attr("class", "goodLi")
                     .text(days[i].day);
                 break;
@@ -62,13 +67,10 @@
         }
     }
 
-   
-
-
     function testOver(day) {
         tooltip = d3.select(container).append("div")
-.attr("class", "tooltip")
-.style("opacity", 0);
+            .attr("class", "tooltip")
+            .style("opacity", 0);
 
         tooltip.transition()
                .duration(200)

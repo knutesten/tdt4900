@@ -1,4 +1,3 @@
-var sumbi = 0;
 function pie(container, data){
     var weekSummed = data.getWeekSummed();
     var isWeekView = true;
@@ -7,9 +6,8 @@ function pie(container, data){
         width = 2*height,
         radius = Math.min(width, height) / 2;
     
-    var color = d3.scale.ordinal()
-        .range(["#98abc5", "#a05d56", "#ff8c00"]);
-   
+    var color = new Color();
+     
     var container = d3.select(container)
         .append("div")
         .style("width", width + "px");
@@ -68,7 +66,7 @@ function pie(container, data){
         
         g.append("path")
               .attr("d", arc)
-              .style("fill", function(d) { return color(d.data.activityCode); });
+              .style("fill", function(d) { return color.nominal(d.data.activityCode); });
         
         var legend = svg
                 .append("g")
@@ -86,7 +84,7 @@ function pie(container, data){
                 .attr("y", function(d){return d.activityCode*height/9;})
                 .attr("width", height/10)
                 .attr("height", height/10)
-                .style("fill", function(d){return color(d.activityCode)});
+                .style("fill", function(d){return color.nominal(d.activityCode)});
            
            legend.append("text")
                 .attr("x", height/10+10)
