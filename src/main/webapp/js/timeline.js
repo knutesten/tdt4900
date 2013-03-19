@@ -1,6 +1,7 @@
 function timeline(container, data){
     var week = data.getWeek();
-    var isWeekView = true;
+    var isWeekView = true
+        isHighlighting = false;
     var millis = 1000*3600;
    
     var width= 700, height = 30;
@@ -10,8 +11,13 @@ function timeline(container, data){
     var container = d3.select(container)
         .append("div")
         .style("width", width + "px");
-    
-   container 
+
+    container 
+        .append("div")
+        .text("Highlighting on/off")
+        .on("click", switchHighlighting);
+   
+    container 
         .append("div")
         .text("Switch view.")
         .style("margin-bottom", 30 + "px")
@@ -64,7 +70,12 @@ function timeline(container, data){
             .attr("width", function(d){return x(d.time.getTime() +d.interval) - x(d.time);})
             .attr("y", drawNumbers?numberHeight+3:3)
             .attr("height", height)
-            .attr("fill", function(d){return color.nominal(d.activityCode);})
+            .attr("fill", function(d){
+                if(isHighlighting && d.highlight){
+                    return color.nominal(3);
+                }
+                return color.nominal(d.activityCode);
+            });
 
         svg.selectAll(".ticks")
             .data(tickValues)
@@ -89,6 +100,16 @@ function timeline(container, data){
         isWeekView = true;
         for(var i = 0; i < week.length; i++){
             draw(week[i], i===0?true:false);
+        }
+    }
+
+    function switchHighlighting(){
+        container.selectAll("svg").remove();
+        isHighlighting = !isHighlighting;
+        if(isWeekView){
+            drawWeek();
+        }else{
+            drawDay();
         }
     }
 
