@@ -4,13 +4,19 @@ function clock24(container, data){
 	    height = 400;
     var week = data.getWeek();
     var isWeekView = true;
+    var isHighlighting = false;
     
     var color = new Color();
 
     var container = d3.select(container)
         .append("div")
         .style("width", width + "px");
-    
+
+    container 
+        .append("div")
+        .text("Highlighting on/off")
+        .on("click", switchHighlighting);
+
     container 
         .append("div")
         .text("Switch view.")
@@ -28,6 +34,16 @@ function clock24(container, data){
         isWeekView = true;
         for(var j = 0; j < week.length; j++){
             draw(week[j]);
+        }
+    }
+
+    function switchHighlighting(){
+        container.selectAll("svg").remove();
+        isHighlighting = !isHighlighting;
+        if(isWeekView){
+            drawWeek();
+        }else{
+            drawDay();
         }
     }
 
@@ -63,8 +79,13 @@ function clock24(container, data){
               .attr("class", "arc");
 
         g.append("path")
-              .attr("d", arc)
-              .style("fill", function(d) { return color.nominal(d.data.activityCode); });
+            .attr("d", arc)
+            .style("fill", function(d) {
+                if(isHighlighting && d.data.highlight){ 
+                    return color.nominal(3);
+                } 
+                return color.nominal(d.data.activityCode); 
+            });
               
         var clockData = [], angle, label;
         for(var j = 0; j < 24; j++){

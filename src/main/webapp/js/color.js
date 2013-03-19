@@ -1,8 +1,7 @@
 function Color() {
     var self = this;
     this.undefinedColor = "blue";
-    this.nominalColors = ["#98abc5", "#a05d56", "#ff8c00"];
-
+    this.nominalColors = ["#98abc5", "#a05d56", "#ff8c00", "red"];
 }
 
 Color.prototype.gradient = function(d){

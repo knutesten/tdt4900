@@ -1,6 +1,7 @@
 function Data(){
     var self = this;
-    this.source = "../csv/daniel.csv";
+    this.source = "../csv/test2.csv";
+    this.HIGHLIGHT_THRESHOLD = 1 * 1000 * 3600;
     this.weekBlocks = undefined;
     this.week12Hours = undefined;
     this.week = undefined;
@@ -9,6 +10,7 @@ function Data(){
     //TODO: Don't know what to do with this. We could maybe disable the buttons till the parsing is done?
     parseActivPalData(this.source, function(data){
         self.week = combineWalkInterval(data);
+        addHighlighting(self.week);
         console.log("Parsing is done.");
     });
 
@@ -33,6 +35,16 @@ function Data(){
             combinedWeek.push(newData);
         }
         return combinedWeek;
+    }
+
+    function addHighlighting(week){
+        for(var i = 0; i < week.length; i++){
+            for(var j = 0; j < week[i].length; j++){
+                if(week[i][j].interval > self.HIGHLIGHT_THRESHOLD && week[i][j].activityCode === 0){
+                    week[i][j].highlight = true;
+                }
+            }
+        }
     }
 }
 

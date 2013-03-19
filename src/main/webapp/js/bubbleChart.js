@@ -1,4 +1,5 @@
 function bubbleChart(container, data){ 
+    var isHighlighting = false;
     var data = data.getWeek()[1];
     var width = 1000,
         height = 500;
@@ -23,6 +24,17 @@ function bubbleChart(container, data){
     
     var color = new Color(); 
    
+    var container = d3.select(container)
+        .append("div")
+        .style("width", width + "px");
+
+    container 
+        .append("div")
+        .text("Highlighting on/off")
+        .on("click", switchHighlighting);
+
+    draw();
+
     var maxValue = d3.max(data, function(d) {
         return d.interval;
     });
@@ -33,85 +45,96 @@ function bubbleChart(container, data){
     for(var i = 0; i < data.length; i++){
         var element = {
             r: scale(data[i].interval),
-            activityCode: data[i].activityCode
+            activityCode: data[i].activityCode,
+            highlight: data[i].highlight
         };
 
         nodes.push(element);
     }
-
-    nodes.sort(function(a, b){
-        return b.activityCode - a.activityCode;
-    });
-
-    vis = d3.select(container).append("svg")
-        .attr("width", width)
-        .attr("height", height);
     
-    circles = vis.selectAll("circle")
-        .data(nodes);
-
-    circles.enter().append("circle")
-        .attr("r", 0)
-        .attr("cx", function(d){
-            return d.cx;
-        })
-        .attr("cy", function(d){
-            return d.cy;
-        })
-        .attr("fill", function(d){
-            return color.nominal(d.activityCode)
-        })
-        .attr("stroke", function(d){ 
-            var col = d3.rgb(color.nominal(d.activityCode));
-            return col.darker().darker();
-        });
-            
+    function switchHighlighting(){
+        container.selectAll("svg").remove();
+        isHighlighting = !isHighlighting;
+        draw();
+    }
     
-    circles.transition()
-        .duration(2000)
-        .attr("r", function(d){
-            return d.r;
-        });
+    function draw(){
+        vis = container.append("svg")
+            .attr("width", width)
+            .attr("height", height);
+        
+        circles = vis.selectAll("circle")
+            .data(nodes);
 
-    force = d3.layout.force()
-        .alpha(1)
-        .nodes(nodes)
-        .size([width, height]);
-
-    force.gravity(gravity)
-        .charge(charge)
-        .friction(friction)
-        .on("tick", tick);
-
-    force.start(); 
-
-    function tick(e){
-        circles
-            .each(moveTowardsCenter(e.alpha))
-            .each(moveTowardsBand(e.alpha))
+        circles.enter().append("circle")
+            .attr("r", 0)
             .attr("cx", function(d){
-                return d.x;
+                return d.cx;
             })
             .attr("cy", function(d){
-                return d.y;
+                return d.cy;
+            })
+            .attr("fill", function(d){
+                if(isHighlighting && d.highlight){
+                    return color.nominal(3);
+                }
+                return color.nominal(d.activityCode);
+            })
+            .attr("stroke", function(d){ 
+                var col = d3.rgb(color.nominal(d.activityCode));
+                if(isHighlighting && d.highlight){
+                    col = d3.rgb(color.nominal(3));
+                }
+                return col.darker().darker();
             });
-    }
-    
-    function charge(d){
-        return -Math.pow(d.r, 2)/7;
-    }
+                
+        
+        circles.transition()
+            .duration(2000)
+            .attr("r", function(d){
+                return d.r;
+            });
 
-    function moveTowardsBand(alpha){
-        return function(d){
-            var target = center.y - ((d.activityCode)-1)* scale(total);
-            d.y = d.y + (target - d.y) * damper * alpha * alpha * alpha * 100;
+        force = d3.layout.force()
+            .alpha(1)
+            .nodes(nodes)
+            .size([width, height]);
+
+        force.gravity(gravity)
+            .charge(charge)
+            .friction(friction)
+            .on("tick", tick);
+
+        force.start(); 
+
+        function tick(e){
+            circles
+                .each(moveTowardsCenter(e.alpha))
+                .each(moveTowardsBand(e.alpha))
+                .attr("cx", function(d){
+                    return d.x;
+                })
+                .attr("cy", function(d){
+                    return d.y;
+                });
         }
-    }
+        
+        function charge(d){
+            return -Math.pow(d.r, 2)/7;
+        }
 
-    function moveTowardsCenter(alpha){
-        return function (d){
-            d.x = d.x + (center.x - d.x) * (damper + 0.02) * alpha;
-            d.y = d.y + (center.y - d.y) * (damper + 0.02) * alpha;
+        function moveTowardsBand(alpha){
+            return function(d){
+                var target = center.y - ((d.activityCode)-1)* scale(total);
+                d.y = d.y + (target - d.y) * damper * alpha * alpha * alpha * 100;
+            }
+        }
+
+        function moveTowardsCenter(alpha){
+            return function (d){
+                d.x = d.x + (center.x - d.x) * (damper + 0.02) * alpha;
+                d.y = d.y + (center.y - d.y) * (damper + 0.02) * alpha;
+            }
         }
     }
 }
