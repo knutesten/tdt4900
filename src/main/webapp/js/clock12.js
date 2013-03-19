@@ -3,14 +3,20 @@ function clock12(container, data){
     var width = 250,
         height = 250;
     var week = data.getWeek12Hours();
-    var isWeekView = true;
+    var isWeekView = true
+        isHighlighting = false;
     
     var color = new Color();
     
     var container = d3.select(container)
         .append("div")
         .style("width", width*2 + "px");
-    
+ 
+    container 
+        .append("div")
+        .text("Highlighting on/off")
+        .on("click", switchHighlighting);
+   
     container 
         .append("div")
         .text("Switch view.")
@@ -31,6 +37,16 @@ function clock12(container, data){
         }
     }
 
+    function switchHighlighting(){
+        container.selectAll("svg").remove();
+        isHighlighting = !isHighlighting;
+        if(isWeekView){
+            drawWeek();
+        }else{
+            drawDay();
+        }
+    }
+
     function switchView(){
         container.selectAll("svg").remove();
         if(isWeekView){
@@ -42,31 +58,36 @@ function clock12(container, data){
        
     function draw(data){ 
         for(var i = 0; i < data.length; i++){
-	        var radius = Math.min(width, height) / 2;
-	
-	        var arc = d3.svg.arc()
-	            .outerRadius(radius - 20)
-	            .innerRadius(0);
-	
-	        var pie = d3.layout.pie()
-	            .sort(null)
-	            .value(function(d) { return d.interval; });
-	
-	        var svg = container.append("svg")
-	            .attr("width", width)
-	            .attr("height", height)
-	            .append("g")
-	            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+            var radius = Math.min(width, height) / 2;
+    
+            var arc = d3.svg.arc()
+                .outerRadius(radius - 20)
+                .innerRadius(0);
+    
+            var pie = d3.layout.pie()
+                .sort(null)
+                .value(function(d) { return d.interval; });
+    
+            var svg = container.append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .append("g")
+                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-	        var g = svg.selectAll(".arc")
-	            .data(pie(data[i]))
-	            .enter().append("g")
-	            .attr("class", "arc");
-	
-	        g.append("path")
-	              .attr("d", arc)
-	              .style("fill", function(d) { return color.nominal(d.data.activityCode); });
-	              
+            var g = svg.selectAll(".arc")
+                .data(pie(data[i]))
+                .enter().append("g")
+                .attr("class", "arc");
+    
+            g.append("path")
+                .attr("d", arc)
+                .style("fill", function(d) {
+                    if(isHighlighting && d.data.highlight){ 
+                        return color.nominal(3);
+                    } 
+                    return color.nominal(d.data.activityCode); 
+                });
+                  
                 var clockData = [], angle, label;
                 for(var j = 0; j < 12; j++){
                         label = (j+11)%12 +1 + 12*i;
@@ -88,7 +109,7 @@ function clock12(container, data){
                arc.outerRadius(radius*2-15);
                clock.append("text")
                       .attr("transform", function(d) {
-			      return "translate(" + arc.centroid(d) + ")"; })
+                  return "translate(" + arc.centroid(d) + ")"; })
                       .attr("dy", ".35em")
                       .style("text-anchor", "middle")
                       .text(function(d) {return d.label; });
