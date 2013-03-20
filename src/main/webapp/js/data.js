@@ -10,6 +10,9 @@ function Data(){
     //TODO: Don't know what to do with this. We could maybe disable the buttons till the parsing is done?
     parseActivPalData(this.source, function(data){
         self.week = combineWalkInterval(data);
+        //Remove first and last day because they are incomplete.
+        self.week.pop();
+        self.week.shift();
         addHighlighting(self.week);
         console.log("Parsing is done.");
     });
