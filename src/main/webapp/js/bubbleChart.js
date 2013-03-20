@@ -19,10 +19,11 @@ function bubbleChart(container, data){
     
     var vis,
         nodes = [],
-        force,
         circles;
     
     var color = new Color(); 
+    
+    var force = d3.layout.force();
    
     var container = d3.select(container)
         .append("div")
@@ -32,8 +33,6 @@ function bubbleChart(container, data){
         .append("div")
         .text("Highlighting on/off")
         .on("click", switchHighlighting);
-
-    draw();
 
     var maxValue = d3.max(data, function(d) {
         return d.interval;
@@ -52,6 +51,8 @@ function bubbleChart(container, data){
         nodes.push(element);
     }
     
+    draw();
+
     function switchHighlighting(){
         container.selectAll("svg").remove();
         isHighlighting = !isHighlighting;
@@ -59,6 +60,9 @@ function bubbleChart(container, data){
     }
     
     function draw(){
+        force
+            .stop();
+
         vis = container.append("svg")
             .attr("width", width)
             .attr("height", height);
@@ -95,7 +99,7 @@ function bubbleChart(container, data){
                 return d.r;
             });
 
-        force = d3.layout.force()
+        force
             .alpha(1)
             .nodes(nodes)
             .size([width, height]);
@@ -120,7 +124,7 @@ function bubbleChart(container, data){
         }
         
         function charge(d){
-            return -Math.pow(d.r, 2)/7;
+            return Math.min(-Math.pow(d.r, 2)/6, -1);
         }
 
         function moveTowardsBand(alpha){
@@ -138,4 +142,3 @@ function bubbleChart(container, data){
         }
     }
 }
-
