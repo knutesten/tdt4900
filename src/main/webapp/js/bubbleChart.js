@@ -43,9 +43,12 @@ function bubbleChart(container, data){
     var cx = width/2, cy = height/2;
     for(var i = 0; i < data.length; i++){
         var element = {
+            id: i,
             r: scale(data[i].interval),
             activityCode: data[i].activityCode,
-            highlight: data[i].highlight
+            highlight: data[i].highlight,
+            interval: data[i].interval,
+            time: data[i].time
         };
 
         nodes.push(element);
@@ -99,6 +102,9 @@ function bubbleChart(container, data){
                 return d.r;
             });
 
+        circles
+            .on("mouseover", showTooltip);
+
         force
             .alpha(1)
             .nodes(nodes)
@@ -121,6 +127,30 @@ function bubbleChart(container, data){
                 .attr("cy", function(d){
                     return d.y;
                 });
+        }
+
+        function showTooltip(d){
+            d3.select(this)
+                .append("svg:title")
+                .text("Tidspunkt: " + millisToTime(d.time, false) + "\nLengde: " + millisToTime(d.interval, true));
+        }
+        
+        function millisToTime(time, addSec){
+            var sec, min, hou;
+            if(time > 3600*1000*24){
+                time = time%(3600*1000*24) + 3600 * 1000;
+            }
+            time = Math.round(time/1000);
+            sec = time%60;
+            time = (time - sec)/60;
+            min = time%60;
+            time = (time - min)/60;
+            hou = time%24;
+            if(addSec){
+                return (hou<10?"0":"")+hou+":"+(min<10?"0":"")+min+":"+(sec<10?"0":"")+sec;
+            }else{
+                return (hou<10?"0":"")+hou+":"+(min<10?"0":"")+min;
+            }
         }
         
         function charge(d){
