@@ -124,7 +124,7 @@ function bubbleChart(container, data){
         }
         
         function charge(d){
-            return Math.min(-Math.pow(d.r, 2)/6, -1);
+            return Math.min(-Math.pow(d.r, 2)/6, -d.r*0.62);
         }
 
         function moveTowardsBand(alpha){
