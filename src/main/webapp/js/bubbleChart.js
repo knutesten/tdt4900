@@ -1,3 +1,4 @@
+var force = d3.layout.force();
 function bubbleChart(container, data){ 
     var isHighlighting = false;
     var data = data.getWeek()[1];
@@ -12,8 +13,7 @@ function bubbleChart(container, data){
             {x: width / 2, y: height / 2 - offset}
         ];
 
-    var force,
-        gravity = -0.01,
+    var gravity = -0.01,
         friction = 0.90,
         damper = 0.1;
     
@@ -23,8 +23,6 @@ function bubbleChart(container, data){
     
     var color = new Color(); 
     
-    var force = d3.layout.force();
-   
     var container = d3.select(container)
         .append("div")
         .style("width", width + "px");
@@ -41,6 +39,7 @@ function bubbleChart(container, data){
     var total = 24 * 3600 * 1000;
     var scale = d3.scale.pow().exponent(0.5).domain([0, total]).range([0, (height)/3]);  
     var cx = width/2, cy = height/2;
+    
     for(var i = 0; i < data.length; i++){
         var element = {
             id: i,
