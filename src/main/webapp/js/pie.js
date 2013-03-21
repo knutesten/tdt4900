@@ -94,14 +94,4 @@ function pie(container, data){
     }
 }
 
- function millisToTime(time){
-                var sec, min, hou;
-                time = Math.round(time/1000);
-                sec = time%60;
-                time = (time - sec)/60;
-                min = time%60;
-                time = (time - min)/60;
-                hou = time;
-                
-                return (hou<10?"0":"")+hou+":"+(min<10?"0":"")+min+":"+(sec<10?"0":"")+sec;
-        }
+ 
