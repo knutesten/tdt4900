@@ -38,21 +38,24 @@
 
     //Go through the days and create them in the appropriate category
     for (var i = 0; i < days.length; i++) {
+        var day = days[i];
         switch (days[i].category) {
             case 0:
                 bul.append("li")
                     .style("background-color", color.nominal(0))
-                    .attr("class", "badLi")
-                    .on("mouseover", function () {
-                        testOver(days[i])
+                    .call(function (d) {
+                        createTooltip(d, day);
                     })
-                    .on("mouseout", testOut)
+                    .attr("class", "badLi")
                     .text(days[i].day);                   
                 break;
 
             case 1:
                 oul.append("li")
                     .style("background-color", color.nominal(1))
+                    .call(function (d) {
+                        createTooltip(d, day);
+                    })
                     .attr("class", "okLi")
                     .text(days[i].day);
                 break;
@@ -60,6 +63,9 @@
             case 2:
                 gul.append("li")
                     .style("background-color", color.nominal(2))
+                    .call(function (d) {
+                        createTooltip(d, day);
+                    })
                     .attr("class", "goodLi")
                     .text(days[i].day);
                 break;
@@ -68,16 +74,17 @@
     }
 
     function testOver(day) {
+        console.log(day);
         tooltip = d3.select(container).append("div")
             .attr("class", "tooltip")
-            .style("opacity", 0);
+            .style("opacity", 0)
+            .text(day.day);
 
         tooltip.transition()
                .duration(200)
-               .style("opacity", .9)
+               .style("opacity", 1)
                .style("left", (d3.event.pageX) + "px")
                .style("top", (d3.event.pageY - 28) + "px");
-        pie(".tooltip", input[day]);
     }
 
     function testOut() {
@@ -86,5 +93,13 @@
                 .style("opacity", 0);
 
         tooltip.remove();
+    }
+
+    function createTooltip(element, day){
+        element
+            .on("mouseover", function () {
+                testOver(day);
+            })
+            .on("mouseout", testOut)
     }
 }
