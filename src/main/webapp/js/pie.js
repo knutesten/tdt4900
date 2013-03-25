@@ -22,13 +22,13 @@ function pie(container, data){
         
     function drawDay(){
         isWeekView = false;
-        draw(weekSummed[1]);
+        draw(weekSummed[1].data);
     }
    
     function drawWeek(){
         isWeekView = true;
         for(var j = 0; j < weekSummed.length; j++){
-            draw(weekSummed[j]);
+            draw(weekSummed[j].data);
         }
     }
 

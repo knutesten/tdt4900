@@ -83,20 +83,22 @@ Data.prototype.getWeekSummed = function(){
         var input = this.getWeek();
 
         var label = ["Sitting/Lying", "Standing", "Walking"],
-            data;
+            data,
+            element;
         for(var j = 0; j < input.length; j++){
             data = [];
-
+            element = {date: input[j][0].time};
             for(var k = 0; k < label.length; k++){
                 data[k] = {activityCode: k, sum: 0, activityLabel: label[k]};
             }
              
-            for(var i = 0; i< input[j].length; i++){
+            for(var i = 0; i < input[j].length; i++){
                 var sum = input[j][i].interval;
                 data[input[j][i].activityCode].sum += input[j][i].interval;
             }
             
-            this.weekSummed.push(data);
+            element.data = data;
+            this.weekSummed.push(element);
         }
     }
 

@@ -1,5 +1,7 @@
 ﻿function smileyWeek(container, data) {
     var input = data.getWeek();
+    var weekSummed = data.getWeekSummed();
+
     var height = 500;
     var days = new Array();
 
@@ -12,8 +14,7 @@
     var gday = mdiv.append('div').attr("id", "goodMainDiv");
     var oday = mdiv.append('div').attr("id", "okMainDiv");
     var bday = mdiv.append('div').attr("id", "badMainDiv");
-
-
+    
     gday.append("img")
         .attr("src", "fig/gday.svg")
         .attr("height", height / 3)
@@ -44,7 +45,7 @@
                 bul.append("li")
                     .style("background-color", color.nominal(0))
                     .call(function (d) {
-                        createTooltip(d, day);
+                        createTooltip(d, i);
                     })
                     .attr("class", "badLi")
                     .text(days[i].day);                   
@@ -54,7 +55,7 @@
                 oul.append("li")
                     .style("background-color", color.nominal(1))
                     .call(function (d) {
-                        createTooltip(d, day);
+                        createTooltip(d, i);
                     })
                     .attr("class", "okLi")
                     .text(days[i].day);
@@ -64,7 +65,7 @@
                 gul.append("li")
                     .style("background-color", color.nominal(2))
                     .call(function (d) {
-                        createTooltip(d, day);
+                        createTooltip(d, i);
                     })
                     .attr("class", "goodLi")
                     .text(days[i].day);
@@ -73,12 +74,21 @@
         }
     }
 
-    function testOver(day) {
-        console.log(day);
+    function testOver(i) {
+        var tooltipText="",
+            percentage;
+        for(var j = 0; j < weekSummed[i].data.length; j++) {
+            percentage = Math.round(100 * weekSummed[i].data[j].sum / (3600 * 1000 * 24));
+            tooltipText = tooltipText + weekSummed[i].data[j].activityLabel + ": " + percentage + "%";
+            if(j != weekSummed[i].data.length-1) {
+                tooltipText = tooltipText + "<br />";
+            }
+        }
+
         tooltip = d3.select(container).append("div")
             .attr("class", "tooltip")
             .style("opacity", 0)
-            .text(day.day);
+            .html(tooltipText);
 
         tooltip.transition()
                .duration(200)
@@ -95,10 +105,10 @@
         tooltip.remove();
     }
 
-    function createTooltip(element, day){
+    function createTooltip(element, i){
         element
             .on("mouseover", function () {
-                testOver(day);
+                testOver(i);
             })
             .on("mouseout", testOut)
     }
