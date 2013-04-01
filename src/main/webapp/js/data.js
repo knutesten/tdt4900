@@ -1,4 +1,4 @@
-function Data(){
+﻿function Data(){
     var self = this;
     this.source = "../csv/test2.csv";
     this.HIGHLIGHT_THRESHOLD = 1 * 1000 * 3600;
@@ -85,7 +85,7 @@ Data.prototype.getWeekSummed = function () {
         this.weekSummed = [];
         var input = this.getWeek();
 
-        var label = ["Sitting/Lying", "Standing", "Walking"],
+        var label = ["Stillesittende", "Stående", "Gående"],
             data,
             element;
         for (var j = 0; j < input.length; j++) {
