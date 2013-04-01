@@ -59,8 +59,11 @@ Data.prototype.getWeekBlocks = function () {
     if (!this.weekBlocks) {
         var week = this.getWeek();
         this.weekBlocks = [];
+        var element;
         for (var i = 0; i < week.length; i++) {
-            this.weekBlocks.push(createBlocks(week[i]));
+            element = {time: week[i][0].time};
+            element.data = createBlocks(week[i]);
+            this.weekBlocks.push(element);
         }
     }
     return this.weekBlocks;

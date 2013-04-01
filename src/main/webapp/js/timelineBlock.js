@@ -7,12 +7,13 @@ function timelineBlock(container, data, daysToShow){
         height = 30,
         backgroundColor = "lightgray",
         margin = { 
-            left: 10,
-            right: 10,
-            top: 10,
-            bottom: 10 
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 5 
         }
-        boxWidth = width/24
+        dayNameWidth = 70
+        boxWidth = (width-dayNameWidth)/24
         boxBorderWidth = 1
         boxBorderColor = "white",
         fontColor = "black";
@@ -30,27 +31,39 @@ function timelineBlock(container, data, daysToShow){
     switchView();
     
     function drawWeek(){
+        var dayContainer;
         isWeekView = true;
         for(var j = 0; j < weekBlocks.length; j++){
-            draw(weekBlocks[j]);
+            dayContainer = container
+                .append("div")
+                .style("clear", "both")
+                .attr("class", "timeline");
+
+            dayContainer
+                .append("div")
+                .style("float", "left")
+                .style("width", dayNameWidth+"px")
+                .html(getDayName(weekBlocks[j].time.getDay()));
+
+            draw(weekBlocks[j].data, dayContainer);
         }
     }
 
     function drawDay(){
         isWeekView = false;
-        draw(weekBlocks[1]);
+        draw(weekBlocks[1].data, container);
     }
     
-    function draw(blocks){ 
+    function draw(blocks, container){ 
         var div = container
             .append("div")
             .attr("class", "timeline")
             .style("position", "relative")
             .style("float", "left")
-            .style("margin-top", margin.top)
-            .style("margin-left", margin.left)
-            .style("margin-bottom", margin.bottom)
-            .style("margin-right", margin.right)
+            .style("margin-top", margin.top +"px")
+            .style("margin-left", margin.left +"px")
+            .style("margin-bottom", margin.bottom +"px")
+            .style("margin-right", margin.right +"px")
             .style("background-color", backgroundColor);
         
         for(var i = 0; i < 24; i++){
