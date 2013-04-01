@@ -80,7 +80,7 @@
         for(var j = 0; j < weekSummed[i].data.length; j++) {
             percentage = Math.round(100 * weekSummed[i].data[j].sum / (3600 * 1000 * 24));
             tooltipText = tooltipText + weekSummed[i].data[j].activityLabel + ": " + percentage + "%";
-            if(j != weekSummed[i].data.length-1) {
+            if(j !== weekSummed[i].data.length-1) {
                 tooltipText = tooltipText + "<br />";
             }
         }
@@ -110,6 +110,6 @@
             .on("mouseover", function () {
                 testOver(i);
             })
-            .on("mouseout", testOut)
+            .on("mouseout", testOut);
     }
 }

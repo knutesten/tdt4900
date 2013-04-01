@@ -51,56 +51,55 @@ function Data(){
     }
 }
 
-Data.prototype.getWeek = function(){
+Data.prototype.getWeek = function () {
     return this.week;
-}
+};
 
-Data.prototype.getWeekBlocks = function(){
-    if(!this.weekBlocks){
+Data.prototype.getWeekBlocks = function () {
+    if (!this.weekBlocks) {
         var week = this.getWeek();
         this.weekBlocks = [];
-        for(var i = 0; i < week.length; i++){
+        for (var i = 0; i < week.length; i++) {
             this.weekBlocks.push(createBlocks(week[i]));
         }
     }
     return this.weekBlocks;
-}
+};
 
-Data.prototype.getWeek12Hours = function(){
-    if(!this.week12Hours){
+Data.prototype.getWeek12Hours = function () {
+    if (!this.week12Hours) {
         var week = this.getWeek();
         this.week12Hours = [];
-        for(var i = 0; i < week.length; i++){
+        for (var i = 0; i < week.length; i++) {
             this.week12Hours.push(split12Hours(week[i]));
         }
     }
     return this.week12Hours;
-}
+};
 
-Data.prototype.getWeekSummed = function(){
-    if(!this.weekSummed){
+Data.prototype.getWeekSummed = function () {
+    if (!this.weekSummed) {
         this.weekSummed = [];
         var input = this.getWeek();
 
         var label = ["Sitting/Lying", "Standing", "Walking"],
             data,
             element;
-        for(var j = 0; j < input.length; j++){
+        for (var j = 0; j < input.length; j++) {
             data = [];
-            element = {date: input[j][0].time};
-            for(var k = 0; k < label.length; k++){
-                data[k] = {activityCode: k, sum: 0, activityLabel: label[k]};
+            element = { date: input[j][0].time };
+            for (var k = 0; k < label.length; k++) {
+                data[k] = { activityCode: k, sum: 0, activityLabel: label[k] };
             }
-             
-            for(var i = 0; i < input[j].length; i++){
-                var sum = input[j][i].interval;
+
+            for (var i = 0; i < input[j].length; i++) {
                 data[input[j][i].activityCode].sum += input[j][i].interval;
             }
-            
+
             element.data = data;
             this.weekSummed.push(element);
         }
     }
 
     return this.weekSummed;
-}
+};
