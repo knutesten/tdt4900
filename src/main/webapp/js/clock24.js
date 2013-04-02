@@ -1,7 +1,9 @@
 var test;
 function clock24(container, data){
 	var width = 400,
-	    height = 400;
+	    height = 400,
+        dayNameWidth = 70;
+
     var week = data.getWeek();
     var isWeekView = true;
     var isHighlighting = false;
@@ -10,7 +12,7 @@ function clock24(container, data){
 
     var container = d3.select(container)
         .append("div")
-        .style("width", width + "px");
+        .style("width", width + dayNameWidth + "px");
 
     container 
         .append("div")
@@ -27,18 +29,40 @@ function clock24(container, data){
      
     function drawDay(){
         isWeekView = false;
-        draw(week[1]);
+        draw(week[1], container);
     }
    
     function drawWeek(){
         isWeekView = true;
+
+        var dayContainer,
+            cssIsStupid;
+
         for(var j = 0; j < week.length; j++){
-            draw(week[j]);
+            dayContainer = container
+                .append("div")
+                .style("clear", "both")
+                .attr("class", "chart");
+                
+            cssIsStupid = dayContainer
+                .append("div")
+                .style("float", "left")
+                .style("display", "table")
+                .style("width", dayNameWidth+"px")
+                .style("height", height + "px");
+
+            cssIsStupid
+                .append("div")
+                .style("display", "table-cell")
+                .style("vertical-align", "middle")
+                .text(getDayName(week[j][0].time.getDay()));
+                
+            draw(week[j], dayContainer);
         }
     }
 
     function switchHighlighting(){
-        container.selectAll("svg").remove();
+        container.selectAll(".chart").remove();
         isHighlighting = !isHighlighting;
         if(isWeekView){
             drawWeek();
@@ -48,7 +72,7 @@ function clock24(container, data){
     }
 
     function switchView(){
-        container.selectAll("svg").remove();
+        container.selectAll(".chart").remove();
         if(isWeekView){
             drawDay();
         }else{
@@ -56,7 +80,7 @@ function clock24(container, data){
         }
     }
     
-    function draw(data){
+    function draw(data, container){
         var radius = Math.min(width, height) / 2;
 
         var arc = d3.svg.arc()
@@ -68,6 +92,7 @@ function clock24(container, data){
             .value(function(d) { return d.interval; });
 
         var svg = container.append("svg")
+            .attr("class", "chart")
             .attr("width", width)
             .attr("height", height)
                 .append("g")
