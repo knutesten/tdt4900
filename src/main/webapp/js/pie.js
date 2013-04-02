@@ -2,7 +2,8 @@ function pie(container, data){
     var weekSummed = data.getWeekSummed();
     var isWeekView = true;
      
-    var height = 250,
+    var dayNameWidth = 70,
+        height = 250,
         width = 2*height,
         radius = Math.min(width, height) / 2;
     
@@ -10,7 +11,7 @@ function pie(container, data){
      
     var container = d3.select(container)
         .append("div")
-        .style("width", width + "px");
+        .style("width", (width + dayNameWidth) + "px");
 
     container 
         .append("div")
@@ -22,18 +23,36 @@ function pie(container, data){
         
     function drawDay(){
         isWeekView = false;
-        draw(weekSummed[1].data);
+        draw(weekSummed[1].data, container);
     }
    
     function drawWeek(){
         isWeekView = true;
         for(var j = 0; j < weekSummed.length; j++){
-            draw(weekSummed[j].data);
+            dayContainer = container
+                .append("div")
+                .style("clear", "both")
+                .attr("class", "chart");
+
+            cssIsStupid = dayContainer
+                .append("div")
+                .style("float", "left")
+                .style("display", "table")
+                .style("width", dayNameWidth+"px")
+                .style("height", height+"px"); 
+
+            cssIsStupid
+                .append("div")
+                .style("display", "table-cell")
+                .style("vertical-align", "middle")
+                .text(getDayName(weekSummed[j].date.getDay()));
+
+            draw(weekSummed[j].data, dayContainer);
         }
     }
 
     function switchView(){
-        container.selectAll("svg").remove();
+        container.selectAll(".chart").remove();
         if(isWeekView){
             drawDay();
         }else{
@@ -41,7 +60,7 @@ function pie(container, data){
         }
     }
     
-    function draw(data){
+    function draw(data, container){
         var arc = d3.svg.arc()
             .outerRadius(radius - 10)
             .innerRadius(0);
@@ -51,6 +70,7 @@ function pie(container, data){
             .value(function(d) { return d.sum; });
         
         var svg = container.append("svg")
+            .attr("class", "chart")
             .attr("width", width)
             .attr("height", height);
             

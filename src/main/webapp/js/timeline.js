@@ -1,7 +1,9 @@
 function timeline(container, data){
     var week = data.getWeek();
-    var isWeekView = true
-        isHighlighting = false;
+    var isWeekView = true,
+        isHighlighting = false,
+        numberHeight = 12,
+        dayNameWidth = 70;
     var millis = 1000*3600;
    
     var width= 700, height = 30;
@@ -25,8 +27,7 @@ function timeline(container, data){
 
    switchView();
      
-   function draw(data, drawNumbers){      
-        var numberHeight = 12;
+   function draw(data, drawNumbers, container){      
         var start = data[0].time;
         var timeOffset = new Date(start.getFullYear(), start.getMonth(), start.getDate()).getTime();
         
@@ -35,12 +36,13 @@ function timeline(container, data){
                 tickValues[i] = i*millis + timeOffset;
         }
 
-        var x = d3.scale.linear().range([10, width]);
+        var x = d3.scale.linear().range([0, width-dayNameWidth]);
         x.domain([timeOffset, timeOffset+3600*1000*24]);
         
         var svg = container.append('svg')
             .style("float", "left")
-            .attr("width", width)
+            .attr("class", "timeline")
+            .attr("width", width-dayNameWidth)
             .attr("height", drawNumbers?height+numberHeight:height);
 
         if(drawNumbers){
@@ -93,18 +95,39 @@ function timeline(container, data){
     
     function drawDay(){
         isWeekView = false;
-        draw(week[1], true);
+        draw(week[1], true, container);
     }
 
     function drawWeek(){
+        var dayContainer,
+            cssIsStupid;
+
         isWeekView = true;
         for(var i = 0; i < week.length; i++){
-            draw(week[i], i===0?true:false);
+            dayContainer = container
+                .append("div")
+                .style("clear", "both")
+                .attr("class", "timeline");
+                
+            cssIsStupid = dayContainer
+                .append("div")
+                .style("float", "left")
+                .style("display", "table")
+                .style("width", dayNameWidth+"px")
+                .style("height", (i===0?numberHeight+height:height)+"px");
+
+            cssIsStupid
+                .append("div")
+                .style("display", "table-cell")
+                .style("vertical-align", "middle")
+                .text(getDayName(week[i][0].time.getDay()));
+
+            draw(week[i], i===0?true:false, dayContainer);
         }
     }
 
     function switchHighlighting(){
-        container.selectAll("svg").remove();
+        container.selectAll(".timeline").remove();
         isHighlighting = !isHighlighting;
         if(isWeekView){
             drawWeek();
@@ -114,8 +137,7 @@ function timeline(container, data){
     }
 
     function switchView(){
-        console.log("switch");
-        container.selectAll("svg").remove();
+        container.selectAll(".timeline").remove();
         if(isWeekView){
             drawDay();
         }else{
