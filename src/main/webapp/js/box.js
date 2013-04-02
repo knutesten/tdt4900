@@ -5,7 +5,9 @@ function box(container, data){
         boxBorderColor = "black",
         boxMargin = 5,
         margin = {top: 0, right: 10, bottom: 10, left: 10},
-        width = 500 - margin.left - margin.right,
+        dayNameWidth = 70,
+        width = 500,
+        chartWidth = width - margin.left - margin.right - dayNameWidth,
         height = 200 - margin.top - margin.bottom,
         backgroundColor = "white";
 
@@ -28,13 +30,34 @@ function box(container, data){
         
     function drawDay(){
         isWeekView = false;
-        draw(weekSummed[1].data);
+        draw(weekSummed[1].data, container);
     }
    
     function drawWeek(){
+        var dayConainer,
+            cssIsStupid;
+
         isWeekView = true;
         for(var j = 0; j < weekSummed.length; j++){
-            draw(weekSummed[j].data);
+            dayContainer = container
+                .append("div")
+                .style("clear", "both")
+                .attr("class", "chart");
+
+            cssIsStupid = dayContainer
+                .append("div")
+                .style("float", "left")
+                .style("display", "table")
+                .style("width", dayNameWidth+"px")
+                .style("height", height+"px"); 
+
+            cssIsStupid
+                .append("div")
+                .style("display", "table-cell")
+                .style("vertical-align", "middle")
+                .text(getDayName(weekSummed[j].date.getDay()));
+
+            draw(weekSummed[j].data, dayContainer);
         }
     }
 
@@ -47,12 +70,12 @@ function box(container, data){
         }
     }
     
-    function draw(data){    
+    function draw(data, container){    
         data = {name: "root",
             children: data};
 
         var treemap = d3.layout.treemap()
-                .size([width, height])
+                .size([chartWidth, height])
                 .sticky(true)
                 .value(function(d){ 
                     return d.sum;
@@ -61,9 +84,10 @@ function box(container, data){
         var div = container.append('div')
             .attr("class", "chart")
             .style("position", "relative")
-            .style("width", (width) +boxMargin+ "px")
+            .style("width", (chartWidth) +boxMargin+ "px")
             .style("height", (height)+ boxMargin + "px")
-            .style("left", margin.left + "px")
+            .style("margin-left", margin.left + "px")
+            .style("float", "left")
             .style("top", margin.top + "px")
             .style("background-color", backgroundColor);
         
