@@ -50,7 +50,7 @@ div.tooltip {
     position: absolute;           
     background: white;
 }
-.rounded-corners (@radius: 20px, @stroke: 2px solid){
+.rounded-corners (@radius: 0px, @stroke: 2px solid){
     border: @stroke;
     border-radius: @radius;
 }
@@ -79,7 +79,7 @@ div.tooltip {
 
 
 .goodLi{
-    padding:0 10px;
+    padding: 2px 10px;
     list-style:none;
     display:inline-block;
     margin: 10px;
@@ -91,7 +91,7 @@ div.tooltip {
 }
 
 .okLi{
-    padding:0 10px;
+    padding: 2px 10px;
     list-style:none;
     display:inline-block;
     margin: 10px;
@@ -103,14 +103,14 @@ div.tooltip {
 }
 
 .badLi{
-    padding:0 10px;
+    padding: 4px 10px;
     list-style:none;
     display:inline-block;
     margin: 10px;
     .rounded-corners
 }
 
-//--------------------End of CSS for smileyWeek----------------------
+//--------------------Start of CSS for detailedweek----------------------
 
 .detailDayList{
     padding:0;
@@ -129,7 +129,7 @@ div.tooltip {
 .detailedText{
     display:box;
     text-align:center;
-    margin: 1;
+    margin: 0;
 }
 
 .detailedDayContainer{
@@ -138,15 +138,15 @@ div.tooltip {
 
 .goodDaySvg{
     fill: gray;
-    stroke: green;
+    stroke: black;
 }
 
 .okDaySvg{
     fill: gray;
-    stroke: yellow;
+    stroke: black;
 }
 
 .badDaySvg{
     fill: gray;
-    stroke: red;
+    stroke: black;
 }

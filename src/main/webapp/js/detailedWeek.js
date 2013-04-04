@@ -1,12 +1,12 @@
 ﻿function detailedWeek(container, data) {
     var input = data.getWeek();
-    var height = 800;
+    var height = 500;
     var sheight = 100;
     var swidth = 150;
     var days = new Array();
     var cheight = sheight / 4;
     var cwidth = swidth / 6;
-    var strokePadding = 10;
+    var strokePadding = 2;
     var hourStrokePadding = 2;
 
     var count = 0;
@@ -70,8 +70,8 @@
            .attr("x", 0)
            .attr("y", 0)
             //gjøre disse relative i forhold til swidth og sheight?
-           .attr("rx", 20)
-           .attr("ry", 20)
+           .attr("rx", 0)
+           .attr("ry", 0)
            .attr("width", swidth + strokePadding)
            .attr("height", sheight + strokePadding)
            .style("stroke-width", strokePadding);

@@ -2,7 +2,7 @@ function box(container, data){
     var pictureMargin = 5,
         color = new Color(),
         boxBorderWidth = 2,
-        boxBorderColor = "black",
+        boxBorderColor = "#333333",
         boxMargin = 5,
         margin = {top: 0, right: 10, bottom: 10, left: 10},
         dayNameWidth = 70,
@@ -124,7 +124,11 @@ function box(container, data){
             .style("border-width", function(d){
                 return d.name=="root"?0+"px":boxBorderWidth+"px";
             })
-            .style("border-color", boxBorderColor);
+            .style("border-color", function (d) {
+                coloz = d3.rgb(color.nominal(d.activityCode));
+                return coloz.darker();
+
+            });
         }
     }
 }

@@ -2,7 +2,7 @@ var force = d3.layout.force();
 function bubbleChart(container, data){ 
     var isHighlighting = false;
     var data = data.getWeek()[1];
-    var width = 1000,
+    var width = 500,
         height = 500;
 
     var offset = 35;
