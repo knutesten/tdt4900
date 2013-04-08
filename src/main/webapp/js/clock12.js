@@ -4,7 +4,9 @@ function clock12(container, data){
         dayNameWidth = 70;
     var week = data.getWeek12Hours();
     var isWeekView = true
-        isHighlighting = false;
+    isHighlighting = false;
+
+    var one = true;
     
     var color = new Color();
     
@@ -90,14 +92,32 @@ function clock12(container, data){
                 .sort(null)
                 .value(function(d) { return d.interval; });
     
-            var svg = container.append("svg")
+            var herp = container.append("svg")
                 .attr("class", "chart")
                 .attr("width", width)
+                .attr("height", height);
+
+            herp.append("image")
+                .attr("x", function (d) {
+                    if (one) {
+                        one = false;
+                        return width / 2;
+                    }
+                    else
+                        one = true;
+                    return 0;
+                })
+                .attr("y", 0)
                 .attr("height", height)
-                .append("g")
+                .attr("width", width / 2)
+                .attr("xlink:href", "/fig/nightsky1.png")
+                .attr("preserveAspectRatio", "xMaxYMax slice");
+
+             var svg = herp.append("g")
                 .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-            var g = svg.selectAll(".arc")
+                var g = svg.selectAll(".arc")
+
                 .data(pie(data[i]))
                 .enter().append("g")
                 .attr("class", "arc");
@@ -132,9 +152,18 @@ function clock12(container, data){
                arc.outerRadius(radius*2-15);
                clock.append("text")
                       .attr("transform", function(d) {
-                  return "translate(" + arc.centroid(d) + ")"; })
+                          return "translate(" + arc.centroid(d) + ")";
+                      })
+                      .style("fill", function(d){
+                          if(d.label >= 18 || d.label <= 6 || d.label===12){
+                              return "gray";
+                          }
+                          else
+                              return "black";
+                      })
                       .attr("dy", ".35em")
                       .style("text-anchor", "middle")
+                      
                       .text(function(d) {return d.label; });
                 
         }
