@@ -112,7 +112,7 @@ function clock12(container, data){
                 .attr("height", height)
                 .attr("width", width / 2)
                 .attr("xlink:href", "/fig/nightsky1.png")
-                .attr("preserveAspectRatio", "xMaxYMax slice");
+                .attr("preserveAspectRatio", "xMinYMax slice");
 
             herp.append("image")
                 .attr("x", function (d) { 
@@ -128,7 +128,7 @@ function clock12(container, data){
                 .attr("height", height)
                 .attr("width", width / 2)
                 .attr("xlink:href", "/fig/sunnysky.png")
-                .attr("preserveAspectRatio", "xMaxYMax slice");
+                .attr("preserveAspectRatio", "xMinYMax slice");
 
              var svg = herp.append("g")
                 .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
