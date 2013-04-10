@@ -1,12 +1,9 @@
 ﻿function smileyWeek(container, data) {
-    var input = data.getWeek();
+    var days = data.getWeekBlocks();
     var weekSummed = data.getWeekSummed();
-
+    
     var height = 500;
-    var days = new Array();
-
     var tooltip = 0;
-   
     var color = new Color();
 
     var mdiv = d3.select(container).append('div').attr("id", "smileyDiv");
@@ -31,15 +28,9 @@
     gul = gday.append("ul").attr("class", "dayList");
     oul = oday.append("ul").attr("class", "dayList");
     bul = bday.append("ul").attr("class", "dayList");
-
-    //Extract each day, sum the sedentary time, and set the category based on the sedentary time
-    for (var i = 0; i < input.length; i++) {
-        days[i] = { day: getDayName(input[i][0].time.getDay()), category: classifyDay(input[i]) };
-    }
-
+  
     //Go through the days and create them in the appropriate category
     for (var i = 0; i < days.length; i++) {
-        var day = days[i];
         switch (days[i].category) {
             case 0:
                 bul.append("li")
@@ -73,7 +64,6 @@
                     .attr("class", "goodLi")
                     .text(days[i].day);
                 break;
-
         }
     }
 

@@ -1,13 +1,13 @@
 ﻿function detailedWeek(container, data) {
-    var input = data.getWeek();
+    var days = data.getWeekBlocks();
     var height = 500;
     var sheight = 100;
     var swidth = 150;
-    var days = new Array();
     var cheight = sheight / 4;
     var cwidth = swidth / 6;
     var strokePadding = 2;
     var hourStrokePadding = 2;
+    var tooltip;
 
     var count = 0;
     
@@ -36,11 +36,7 @@
     oul = oday.append("ul").attr("class", "detailDayList");
     bul = bday.append("ul").attr("class", "detailDayList");
 
-    for (i = 0; i < input.length; i++) {  
-            days[i] = { day: getDayName(input[i][0].time.getDay()), category: classifyDay(input[i]), blocks: createBlocks(input[i])};
-    }
-
-   for (var i = 0; i < days.length; i++) {
+    for (var i = 0; i < days.length; i++) {
         switch (days[i].category) {
             case 0:
                 drawDay(bul, days[i]);
@@ -48,7 +44,6 @@
             case 1:
                 drawDay(oul, days[i]);
                 break;
-
             case 2:
                 drawDay(gul, days[i]);
                 break;
@@ -75,7 +70,7 @@
            .attr("width", swidth + strokePadding)
            .attr("height", sheight + strokePadding)
            .style("stroke-width", strokePadding);
-
+        
         for (var i = 0; i < 4; i++) {
             for (var j = 0; j < 6; j++) {
                 svg.append("rect")
@@ -86,7 +81,10 @@
                    .style("stroke", "black")
                    .attr("width", cwidth)
                    .attr("height", cheight)
-                   .attr("fill", color.gradient(day.blocks[count]));
+                   .attr("fill", color.gradient(day.blocks[count].activity))
+                   .call(function(d) {
+                       hover(d, day.blocks[count]);
+                   });
 
                 svg.append("text")
                    .attr("x", (j * cwidth) + (strokePadding / 2) + hourStrokePadding)
@@ -96,7 +94,6 @@
 
                 count++;
             }
-
         }
         count = 0;
     }
@@ -112,5 +109,44 @@
         }
     }
 
+    function createTooltip(block) {
+        var label = ["Stillesittende", "Stående", "Gående"],
+            tooltipText="",
+            percentage;
+        for(var j = 0; j < block.percentage.length; j++) {
+            percentage = Math.round(100 * block.percentage[j]);
+            tooltipText = tooltipText + label[j] + ": " + percentage + "%";
+            if(j !== block.percentage.length-1) {
+                tooltipText = tooltipText + "<br />";
+            }
+        }
 
+        tooltip = d3.select(container).append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0)
+            .html(tooltipText);
+
+        tooltip.transition()
+               .duration(200)
+               .style("opacity", 1)
+               .style("left", (d3.event.pageX) + "px")
+               .style("top", (d3.event.pageY - 28) + "px");
+    }
+
+    function removeTooltip() {
+        tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
+
+        tooltip.remove();
+    }
+
+    function hover(element, block) {
+        element
+            .on("mouseover", function () {
+                createTooltip(block);
+            })
+           .on("mouseout", removeTooltip);
+    }           
 }
+

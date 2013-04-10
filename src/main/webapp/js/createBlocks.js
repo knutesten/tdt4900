@@ -6,60 +6,101 @@ function createBlocks(data){
         blocks = [],
         inteval = 0,
         sum = data[0].time.getTime()%hour,
-        active = false;
+        activitiyCode = 0;
+
+    var walking = 0,
+        sitting = 0,
+        standing = 0,
+        element = {};
 
     for(var i = 0; i < data.length; i++){
         interval = data[i].interval;
-        if(data[i].activityCode != 0){
-            active = true;
-        }
+        activityCode = data[i].activityCode;
 
         //If the current time interval will exceed the current hour it should be spilt.
         if(sum + interval >= hour || data.length-1 === i){
             timeLeft = hour - sum;
-            if(active){
-                sumActive += timeLeft;
+
+            if(activityCode == 0){
+                sitting += timeLeft;
+            } else if(activityCode == 1){
+                standing += timeLeft;
+            } else {
+                walking += timeLeft;
             }
-            blocks[currHour] = sumActive/hour;
+
+            element.activity = (walking+standing)/hour;
+            element.percentage = [sitting/hour, standing/hour, walking/hour];
+            blocks[currHour] = element;
+
+            walking = 0;
+            sitting = 0;
+            standing = 0;
+            element = {};
             interval -= timeLeft;
         
             //If the interval goes over an hour they should still be spilt.
             while(interval > hour){
                 currHour++;
-                blocks[currHour] = 0;
-                if(active){
-                    blocks[currHour] = 1;
+     
+                if(activityCode == 0){
+                    sitting = hour; 
+                } else if(activityCode == 1){
+                    standing = hour; 
+                } else {
+                    walking = hour; 
                 }
+                
+                element.activity = (walking+standing)/hour;
+                element.percentage = [sitting/hour, standing/hour, walking/hour];
+                blocks[currHour] = element;
+
+                walking = 0;
+                sitting = 0;
+                standing = 0;
+                element = {};
 
                 interval -= hour;
             }
 
-            //If the last entry is an interval longer than 1 hour it should be added.
+            //If the last entry is an interval longer than 1/2 hour it should be added.
             if(i==data.length-1&&interval>hour/2&&currHour<23){
                 currHour++;
-                sumActive = 0;
-                if(active){
-                    sumActive = interval
+     
+                if(activityCode == 0){
+                    sitting = interval; 
+                } else if(activityCode == 1){
+                    standing = interval; 
+                } else {
+                    walking = interval; 
                 }
-                blocks[currHour] = sumActive/hour;
+
+                element.activity = (walking+standing)/hour;
+                element.percentage = [sitting/hour, standing/hour, walking/hour];
+                blocks[currHour] = element;          
                 break;
             }
             
             currHour++;
-            sumActive = 0;
-            if(active){
-                sumActive = interval;
-            }
             sum = interval;
+            if(activityCode == 0){
+                sitting += interval;
+            } else if(activityCode == 1){
+                standing += interval;
+            } else {
+                walking += interval;
+            }
         }else{
             //Add interval to sum and sumActive if the current interval was with activity.
             sum+= interval;
-            if(active){
-                sumActive += interval;
+            if(activityCode == 0){
+                sitting += interval;
+            } else if(activityCode == 1){
+                standing += interval;
+            } else {
+                walking += interval;
             }
         }
-        active= false;
     }
-    
     return blocks;
 }
