@@ -7,6 +7,7 @@ function clock12(container, data){
     isHighlighting = false;
 
     var one = true;
+    var two = true;
     
     var color = new Color();
     
@@ -115,13 +116,13 @@ function clock12(container, data){
 
             herp.append("image")
                 .attr("x", function (d) { 
-                    if (one) {
-                        one = false;
-                        return width/2;
+                    if (two) {
+                        two = false;
+                        return 0;
                     }
                     else
-                        one = true;
-                    return 0;
+                        two = true;
+                    return width/2;
                 })
                 .attr("y", 0)
                 .attr("height", height)
