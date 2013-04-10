@@ -142,10 +142,23 @@ function clock12(container, data){
             g.append("path")
                 .attr("d", arc)
                 .style("fill", function(d) {
+                    return color.nominal(d.data.activityCode); 
+                })
+                .style("stroke", function(d) {
                     if(isHighlighting && d.data.highlight){ 
                         return color.nominal(3);
                     } 
                     return color.nominal(d.data.activityCode); 
+                })
+                .style("stroke-width", function (d) {
+                    if(isHighlighting){
+                        if(d.data.highlight){ 
+                            return 4;
+                        } else {
+                            return 0.3;
+                        }
+                    } 
+                    return 0.3; 
                 });
                   
                 var clockData = [], angle, label;
@@ -182,7 +195,6 @@ function clock12(container, data){
                       .style("text-anchor", "middle")
                       
                       .text(function(d) {return d.label; });
-                
         }
     }
 }
