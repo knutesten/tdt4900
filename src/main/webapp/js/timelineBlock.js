@@ -43,15 +43,15 @@ function timelineBlock(container, data, daysToShow){
                 .append("div")
                 .style("float", "left")
                 .style("width", dayNameWidth+"px")
-                .html(getDayName(weekBlocks[j].time.getDay()));
+                .html(weekBlocks[j].day);
 
-            draw(weekBlocks[j].data, dayContainer);
+            draw(weekBlocks[j].blocks, dayContainer);
         }
     }
 
     function drawDay(){
         isWeekView = false;
-        draw(weekBlocks[1].data, container);
+        draw(weekBlocks[1].blocks, container);
     }
     
     function draw(blocks, container){ 
@@ -69,7 +69,7 @@ function timelineBlock(container, data, daysToShow){
         for(var i = 0; i < 24; i++){
             div.append("div")
                .attr("class", "timeline")
-               .style("background-color", color.gradient(blocks[i]))
+               .style("background-color", color.gradient(blocks[i].activity))
                .style("float", "left")
                .style("width", boxWidth - boxBorderWidth+ "px")
                .style("height", height + "px")
