@@ -1,15 +1,15 @@
 function ViewModel(){
     var self = this;
     self.charts = ko.observableArray([
-        {name: "Ukeoversikt", draw: smileyWeek},
-        {name: "Detaljert ukeoversikt", draw: detailedWeek},
-        {name: "Kakediagram", draw: pie},
-        {name: "Boksdiagram", draw: box},
-        {name: "Boblediagram", draw: bubbleChart},
-        {name: "Tidslinje blokker", draw: timelineBlock},
-        {name: "Tidslinje", draw: timeline},
-        {name: "Klokke (12 timer)", draw: clock12},
-        {name: "Klokke (24 timer)", draw: clock24}
+        {name: "U1", draw: smileyWeek},
+        {name: "U2", draw: detailedWeek},
+        {name: "F1", draw: pie},
+        {name: "F2", draw: box},
+        {name: "F3", draw: bubbleChart},
+        {name: "T1", draw: timelineBlock},
+        {name: "T2", draw: timeline},
+        {name: "T3", draw: clock12},
+        {name: "T4", draw: clock24}
     ]);
     for(var i = 0; i < self.charts().length; i++){
         self.charts()[i].isSelected = ko.observable(false);
