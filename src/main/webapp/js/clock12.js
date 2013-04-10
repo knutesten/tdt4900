@@ -113,6 +113,22 @@ function clock12(container, data){
                 .attr("xlink:href", "/fig/nightsky1.png")
                 .attr("preserveAspectRatio", "xMaxYMax slice");
 
+            herp.append("image")
+                .attr("x", function (d) { 
+                    if (one) {
+                        one = false;
+                        return width/2;
+                    }
+                    else
+                        one = true;
+                    return 0;
+                })
+                .attr("y", 0)
+                .attr("height", height)
+                .attr("width", width / 2)
+                .attr("xlink:href", "/fig/sunnysky.png")
+                .attr("preserveAspectRatio", "xMaxYMax slice");
+
              var svg = herp.append("g")
                 .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
