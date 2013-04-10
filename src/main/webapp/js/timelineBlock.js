@@ -28,6 +28,8 @@ function timelineBlock(container, data, daysToShow){
         .style("margin-bottom", 30 + "px")
         .on("click", switchView);
     
+    appendLegend(container, "gradient");
+
     switchView();
     
     function drawWeek(){

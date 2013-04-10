@@ -13,6 +13,9 @@
     
     var color = new Color();
     var mdiv = d3.select(container).append('div').attr("id", "mainDiv");
+    
+    appendLegend(mdiv, "gradient"); 
+    
     var gday = mdiv.append('div').attr("id", "goodMainDiv");
     var oday = mdiv.append('div').attr("id", "okMainDiv");
     var bday = mdiv.append('div').attr("id", "badMainDiv");
