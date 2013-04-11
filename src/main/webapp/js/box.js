@@ -127,8 +127,13 @@ function box(container, data){
             .style("border-color", function (d) {
                 coloz = d3.rgb(color.nominal(d.activityCode));
                 return coloz.darker();
-
             });
         }
+
+        var svg = container.append("svg")
+        .attr("height", height)
+        .attr("width", width);
+
+
     }
 }

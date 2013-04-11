@@ -3,7 +3,9 @@ function bubbleChart(container, data){
     var isHighlighting = false;
     var data = data.getWeek()[1];
     var width = 500,
-        height = 500;
+        height = 500,
+        lwidth = 150;
+        
 
     var offset = 35;
     var center = {x: width/2, y: height/2},
@@ -65,9 +67,12 @@ function bubbleChart(container, data){
         force
             .stop();
 
-        vis = container.append("svg")
-            .attr("width", width)
+        svg = container.append("svg")
+            .attr("width", width + lwidth)
             .attr("height", height);
+
+        vis = svg.append("g")
+        .attr("transform", "translate(" + 0 + "," + 0 + ")");
         
         circles = vis.selectAll("circle")
             .data(nodes);
@@ -169,5 +174,32 @@ function bubbleChart(container, data){
                 d.y = d.y + (center.y - d.y) * (damper + 0.02) * alpha;
             }
         }
+
+        var legend = svg
+        .append("g")
+        .attr("class", "legend")
+        .attr("transform", "translate(" + width + "," + height / 6 + ")");
+
+        legend = legend.selectAll(".legend_entry")
+             .data(data)
+             .enter()
+             .append("g")
+             .attr("class", "legend_entry");
+
+        legend.append("rect")
+             .attr("x", 0)
+             .attr("y", function (d) { return d.activityCode * height / 14; })
+             .attr("width", height / 16)
+             .attr("height", height / 16)
+             .style("fill", function (d) { return color.nominal(d.activityCode) });
+
+        legend.append("text")
+             .attr("x", height / 10 - 8)
+             .attr("y", function (d) { return (d.activityCode) * height / 14 + height / 26; })
+                 .attr("dy", ".10em")
+            .attr("font-family", "serif")
+            .attr("font-weight", "0")
+             .text(function (d) { return codeToLabel(d.activityCode);});
+
     }
 }
