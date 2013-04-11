@@ -1,6 +1,7 @@
 function timelineBlock(container, data, daysToShow){
     var weekBlocks = data.getWeekBlocks();
     var isWeekView = true;
+    var tooltip;
     
     var color = new Color(); 
         width = 700,
@@ -71,6 +72,9 @@ function timelineBlock(container, data, daysToShow){
         for(var i = 0; i < 24; i++){
             div.append("div")
                .attr("class", "timeline")
+               .call(function (d) {
+                   hover(d, blocks[i]);
+               })
                .style("background-color", color.gradient(blocks[i].activity))
                .style("float", "left")
                .style("width", boxWidth - boxBorderWidth+ "px")
@@ -92,4 +96,44 @@ function timelineBlock(container, data, daysToShow){
             drawWeek();
         }
     }
-} 
+
+    function createTooltip(block) {
+        var label = ["Stillesittende", "Stående", "Gående"],
+            tooltipText="",
+            percentage;
+        for(var j = 0; j < block.percentage.length; j++) {
+            percentage = Math.round(100 * block.percentage[j]);
+            tooltipText = tooltipText + label[j] + ": " + percentage + "%";
+            if(j !== block.percentage.length-1) {
+                tooltipText = tooltipText + "<br />";
+            }
+        }
+
+        tooltip = (container).append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0)
+            .html(tooltipText);
+
+        tooltip.transition()
+               .duration(200)
+               .style("left", (d3.event.pageX) + "px")
+               .style("top", (d3.event.pageY - 28) + "px")
+               .style("opacity", 1);
+    }
+
+    function removeTooltip() {
+        tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
+
+        tooltip.remove();
+    }
+
+    function hover(element, block) {
+        element
+            .on("mouseover", function () {
+                createTooltip(block);
+            })
+           .on("mouseout", removeTooltip);
+    } 
+}
