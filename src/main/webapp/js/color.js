@@ -2,6 +2,9 @@ function Color() {
     var self = this;
     this.undefinedColor = "blue";
     this.nominalColors = ["red", "yellow", "green", "blue"];
+
+    //Shades of Gray: http://www.w3schools.com/html/html_colors.asp
+    this.grayscaleColors = ["#FFFFFF", "#B0B0B0", "#808080"]
 }
 
 Color.prototype.gradient = function(d){
@@ -14,6 +17,13 @@ Color.prototype.gradient = function(d){
 Color.prototype.nominal = function(d){
     if(d!=undefined){
         return this.nominalColors[d];
+    }
+    return this.undefinedColor;
+}
+
+Color.prototype.grayscale = function (d) {
+    if (d != undefined) {
+        return this.grayscaleColors[d];
     }
     return this.undefinedColor;
 }

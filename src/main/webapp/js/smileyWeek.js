@@ -34,8 +34,8 @@
         switch (days[i].category) {
             case 0:
                 bul.append("li")
-                    .style("background-color", color.nominal(0))
-                    .style("border-color", d3.rgb(color.nominal(0)).darker().darker())
+                    .style("background-color", color.grayscale(0))
+                    .style("border-color", d3.rgb(color.grayscale(0)).darker().darker())
                     .call(function (d) {
                         createTooltip(d, i);
                     })
@@ -45,8 +45,8 @@
 
             case 1:
                 oul.append("li")
-                    .style("background-color", color.nominal(1))
-                    .style("border-color", d3.rgb(color.nominal(1)).darker().darker())
+                    .style("background-color", color.grayscale(1))
+                    .style("border-color", d3.rgb(color.grayscale(1)).darker().darker())
                     .call(function (d) {
                         createTooltip(d, i);
                     })
@@ -56,8 +56,8 @@
 
             case 2:
                 gul.append("li")
-                    .style("background-color", color.nominal(2))
-                    .style("border-color", d3.rgb(color.nominal(2)).darker().darker())
+                    .style("background-color", color.grayscale(2))
+                    .style("border-color", d3.rgb(color.grayscale(2)).darker().darker())
                     .call(function (d) {
                         createTooltip(d, i);
                     })
