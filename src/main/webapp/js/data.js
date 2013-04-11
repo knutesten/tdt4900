@@ -108,3 +108,8 @@ Data.prototype.getWeekSummed = function () {
 
     return this.weekSummed;
 };
+
+function codeToLabel(code) {
+    var label = ["Stillesittende", "Stående", "Gående"];
+    return label[code];
+}
