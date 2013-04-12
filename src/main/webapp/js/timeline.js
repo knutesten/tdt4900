@@ -3,7 +3,9 @@ function timeline(container, data){
     var isWeekView = true,
         isHighlighting = false,
         numberHeight = 12,
-        dayNameWidth = 70;
+        dayNameWidth = 70,
+        highlightHeight = 7;
+
     var millis = 1000*3600;
    
     var width= 700, height = 30;
@@ -68,13 +70,31 @@ function timeline(container, data){
             .enter()
             .append("rect")
             .attr("class", "bar")
-            .attr("x", function(d){return x(d.time);})
-            .attr("width", function(d){return x(d.time.getTime() +d.interval) - x(d.time);})
+            .attr("x", function(d){
+                return x(d.time);
+            })
+            .attr("width", function(d){
+                var width =  x(d.time.getTime() +d.interval) - x(d.time);
+                return width;
+            })
             .attr("y", drawNumbers?numberHeight+3:3)
             .attr("height", height)
             .attr("fill", function(d){
+                return color.nominal(d.activityCode);
+            })
+            .attr("stroke-width", function (d) {
+                return 0.3;
+            })
+            .attr("stroke", function (d) {
                 if(isHighlighting && d.highlight){
-                    return color.nominal(3);
+                    var posX = x(d.time);
+                    var width =  x(d.time.getTime() +d.interval) - x(d.time);
+                    svg.append("rect")
+                        .attr("height", highlightHeight)
+                        .attr("width", width)
+                        .attr("x", posX)
+                        .attr("y", drawNumbers?numberHeight+3:3)
+                        .attr("fill", color.nominal(3));
                 }
                 return color.nominal(d.activityCode);
             });
