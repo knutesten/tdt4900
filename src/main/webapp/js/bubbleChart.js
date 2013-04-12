@@ -3,7 +3,8 @@ function bubbleChart(container, data){
     var isHighlighting = false;
     var data = data.getWeek()[1];
     var width = 500,
-        height = 500;
+        height = 500
+        lwidth = 150;
 
     var offset = 35;
     var center = {x: width/2, y: height/2},
@@ -25,7 +26,7 @@ function bubbleChart(container, data){
     
     var container = d3.select(container)
         .append("div")
-        .style("width", width + "px");
+        .style("width", width + lwidth+ "px");
 
     container 
         .append("div")
@@ -67,7 +68,9 @@ function bubbleChart(container, data){
 
         vis = container.append("svg")
             .attr("width", width)
-            .attr("height", height);
+            .attr("height", height)
+            .style("position", "relative")
+            .style("float", "left");
         
         circles = vis.selectAll("circle")
             .data(nodes);
@@ -169,5 +172,7 @@ function bubbleChart(container, data){
                 d.y = d.y + (center.y - d.y) * (damper + 0.02) * alpha;
             }
         }
+
+        appendLegend(container, "nominal");
     }
 }

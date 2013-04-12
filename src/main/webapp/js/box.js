@@ -7,7 +7,7 @@ function box(container, data){
         margin = {top: 0, right: 10, bottom: 10, left: 10},
         dayNameWidth = 70,
         width = 500,
-        lwidth = 200,
+        lwidth= 150,
         chartWidth = width - margin.left - margin.right - dayNameWidth,
         height = 200 - margin.top - margin.bottom,
         backgroundColor = "white";
@@ -19,7 +19,7 @@ function box(container, data){
 
     var container = d3.select(container)
         .append("div")
-        .style("width", width + "px");
+        .style("width", width + lwidth + "px");
 
     container 
         .append("div")
@@ -64,6 +64,7 @@ function box(container, data){
 
     function switchView(){
         container.selectAll(".chart").remove();
+        container.selectAll(".lbox").remove();
         if(isWeekView){
             drawDay();
         }else{
@@ -85,7 +86,7 @@ function box(container, data){
         var div = container.append('div')
             .attr("class", "chart")
             .style("position", "relative")
-            .style("width", (chartWidth) +boxMargin+ "px")
+            .style("width", (chartWidth) +boxMargin + "px")
             .style("height", (height)+ boxMargin + "px")
             .style("margin-left", margin.left + "px")
             .style("float", "left")
@@ -130,7 +131,8 @@ function box(container, data){
                 return coloz.darker();
             });
         }
-
+        
+        appendLegend(container, "nominal");
 
     }
 }
