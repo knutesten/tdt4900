@@ -1,7 +1,9 @@
 function clock12(container, data){
     var width = 250,
         height = 250,
-        dayNameWidth = 70;
+        dayNameWidth = 70,
+        highlightStrokeWidth = 5;
+
     var week = data.getWeek12Hours();
     var isWeekView = true
     isHighlighting = false;
@@ -153,12 +155,19 @@ function clock12(container, data){
                 .style("stroke-width", function (d) {
                     if(isHighlighting){
                         if(d.data.highlight){ 
-                            return 4;
+                            return highlightStrokeWidth;
                         } else {
                             return 0.3;
                         }
                     } 
                     return 0.3; 
+                })
+                .attr("stroke-dasharray", function (d) {
+                    if(isHighlighting && d.data.highlight){
+                        //Second value is just a really large number. 
+                        return [(radius-20)*(d.endAngle - d.startAngle), 1000000].join();
+                    } 
+                    return "none"; 
                 });
                   
                 var clockData = [], angle, label;
