@@ -171,8 +171,7 @@ function clock12(container, data){
                 })
                 .attr("stroke-dasharray", function (d) {
                     if(isHighlighting && d.data.highlight){
-                        //Second value is just a really large number. 
-                        return [(radius-20)*(d.endAngle - d.startAngle), 1000000].join();
+                        return [(radius-20)*(d.endAngle - d.startAngle)- 0.1, 1000000].join();
                     } 
                     return "none"; 
                 });
