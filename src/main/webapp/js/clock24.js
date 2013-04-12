@@ -3,6 +3,7 @@ function clock24(container, data){
 	var width = 400,
 	    height = 400,
         dayNameWidth = 70,
+        lwidth = 150,
         highlightStrokeWidth = 5;
 
     var week = data.getWeek();
@@ -13,7 +14,7 @@ function clock24(container, data){
 
     var container = d3.select(container)
         .append("div")
-        .style("width", width + dayNameWidth + "px");
+        .style("width", width + dayNameWidth + lwidth+ "px");
 
     container 
         .append("div")
@@ -64,6 +65,7 @@ function clock24(container, data){
 
     function switchHighlighting(){
         container.selectAll(".chart").remove();
+        container.selectAll(".lbox").remove();
         isHighlighting = !isHighlighting;
         if(isWeekView){
             drawWeek();
@@ -74,6 +76,7 @@ function clock24(container, data){
 
     function switchView(){
         container.selectAll(".chart").remove();
+        container.selectAll(".lbox").remove();
         if(isWeekView){
             drawDay();
         }else{
@@ -95,6 +98,8 @@ function clock24(container, data){
         var svg = container.append("svg")
             .attr("class", "chart")
             .attr("width", width)
+            .style("postion", "relative")
+            .style("float", "left")
             .attr("height", height)
                 .append("g")
             .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
@@ -159,6 +164,8 @@ function clock24(container, data){
                   return "translate(" + arc.centroid(d) + ")"; })
               .attr("dy", ".35em")
               .style("text-anchor", "middle")
-              .text(function(d) {return d.label; });
+              .text(function (d) { return d.label; });
+
+           appendLegend(container, "nominal");
     }	
 }

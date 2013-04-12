@@ -2,6 +2,7 @@ function clock12(container, data){
     var width = 250,
         height = 250,
         dayNameWidth = 70,
+        lwidth = 150,
         highlightStrokeWidth = 5;
 
     var week = data.getWeek12Hours();
@@ -15,7 +16,7 @@ function clock12(container, data){
     
     var container = d3.select(container)
         .append("div")
-        .style("width", width*2 + dayNameWidth+ "px");
+        .style("width", width*2 + dayNameWidth+ lwidth + "px");
  
     container 
         .append("div")
@@ -66,6 +67,7 @@ function clock12(container, data){
 
     function switchHighlighting(){
         container.selectAll(".chart").remove();
+        container.selectAll(".lbox").remove();
         isHighlighting = !isHighlighting;
         if(isWeekView){
             drawWeek();
@@ -76,6 +78,7 @@ function clock12(container, data){
 
     function switchView(){
         container.selectAll(".chart").remove();
+        container.selectAll(".lbox").remove();
         if(isWeekView){
             drawDay();
         }else{
@@ -95,12 +98,16 @@ function clock12(container, data){
                 .sort(null)
                 .value(function(d) { return d.interval; });
     
-            var herp = container.append("svg")
+            cdiv = container.append("div")
+                .style("float", "left")
+                .style("position", "relative");
+
+            var csvg = cdiv.append("svg")
                 .attr("class", "chart")
                 .attr("width", width)
                 .attr("height", height);
 
-            herp.append("image")
+            csvg.append("image")
                 .attr("x", function (d) {
                     if (one) {
                         one = false;
@@ -116,7 +123,7 @@ function clock12(container, data){
                 .attr("xlink:href", "/fig/nightsky1.png")
                 .attr("preserveAspectRatio", "xMinYMax slice");
 
-            herp.append("image")
+            csvg.append("image")
                 .attr("x", function (d) { 
                     if (two) {
                         two = false;
@@ -132,7 +139,7 @@ function clock12(container, data){
                 .attr("xlink:href", "/fig/sunnysky.png")
                 .attr("preserveAspectRatio", "xMinYMax slice");
 
-             var svg = herp.append("g")
+             var svg = csvg.append("g")
                 .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
                 var g = svg.selectAll(".arc")
@@ -205,5 +212,7 @@ function clock12(container, data){
                       
                       .text(function(d) {return d.label; });
         }
+
+        appendLegend(container, "nominal");
     }
 }
