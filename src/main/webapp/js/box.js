@@ -7,6 +7,7 @@ function box(container, data){
         margin = {top: 0, right: 10, bottom: 10, left: 10},
         dayNameWidth = 70,
         width = 500,
+        lwidth = 200,
         chartWidth = width - margin.left - margin.right - dayNameWidth,
         height = 200 - margin.top - margin.bottom,
         backgroundColor = "white";
@@ -129,10 +130,6 @@ function box(container, data){
                 return coloz.darker();
             });
         }
-
-        var svg = container.append("svg")
-        .attr("height", height)
-        .attr("width", width);
 
 
     }

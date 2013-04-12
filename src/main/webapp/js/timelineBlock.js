@@ -1,4 +1,4 @@
-function timelineBlock(container, data, daysToShow){
+ï»¿function timelineBlock(container, data, daysToShow){
     var weekBlocks = data.getWeekBlocks();
     var isWeekView = true;
     var tooltip;
@@ -98,7 +98,7 @@ function timelineBlock(container, data, daysToShow){
     }
 
     function createTooltip(block) {
-        var label = ["Stillesittende", "Stående", "Gående"],
+        var label = ["Stillesittende", "StÃ¥ende", "GÃ¥ende"],
             tooltipText="",
             percentage;
         for(var j = 0; j < block.percentage.length; j++) {
