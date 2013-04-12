@@ -3,8 +3,9 @@ function bubbleChart(container, data){
     var isHighlighting = false;
     var data = data.getWeek()[1];
     var width = 500,
-        height = 500
-        lwidth = 150;
+        height = 500,
+        lwidth = 150,
+        highlightStrokeWidth = 3;
 
     var offset = 35;
     var center = {x: width/2, y: height/2},
@@ -84,9 +85,6 @@ function bubbleChart(container, data){
                 return d.cy;
             })
             .attr("fill", function(d){
-                if(isHighlighting && d.highlight){
-                    return color.nominal(3);
-                }
                 return color.nominal(d.activityCode);
             })
             .attr("stroke", function(d){ 
@@ -95,6 +93,12 @@ function bubbleChart(container, data){
                     col = d3.rgb(color.nominal(3));
                 }
                 return col.darker().darker();
+            })
+            .attr("stroke-width", function (d) {
+                if(isHighlighting && d.highlight){
+                    return highlightStrokeWidth;
+                }
+                return 1.5;
             });
                 
         
