@@ -1,4 +1,4 @@
-function appendLegend(container, type) {    
+function appendLegend(container, type, position) {    
     var color = new Color();
     if(type === "gradient"){
         var svg = container
@@ -59,9 +59,9 @@ function appendLegend(container, type) {
         var svg = container.append("svg")
             .attr("class", "lbox")
             .attr("width", lwidth)
-            .attr("height", height - 50)
-            .style("position", "relative")
-            .style("float", "left");
+            .attr("height", height - 100)
+            .style("position", "relative");
+          //  .style("float", "left");
 
         var legend = svg
                 .append("g")

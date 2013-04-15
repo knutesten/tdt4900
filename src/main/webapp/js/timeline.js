@@ -4,6 +4,7 @@ function timeline(container, data){
         isHighlighting = false,
         numberHeight = 12,
         dayNameWidth = 70,
+        lwidth = 150,
         highlightHeight = 7;
 
     var millis = 1000*3600;
@@ -14,7 +15,7 @@ function timeline(container, data){
    
     var container = d3.select(container)
         .append("div")
-        .style("width", width + "px");
+        .style("width", width + lwidth + "px");
 
     container 
         .append("div")
@@ -27,7 +28,11 @@ function timeline(container, data){
         .style("margin-bottom", 30 + "px")
         .on("click", switchView);
 
-   switchView();
+    appendLegend(container, "nominal");
+    
+    switchView();
+
+   
      
    function draw(data, drawNumbers, container){      
         var start = data[0].time;
@@ -42,7 +47,8 @@ function timeline(container, data){
         x.domain([timeOffset, timeOffset+3600*1000*24]);
         
         var svg = container.append('svg')
-            .style("float", "left")
+            //.style("float", "left")
+            .style("clear", "both")
             .attr("class", "timeline")
             .attr("width", width-dayNameWidth)
             .attr("height", drawNumbers?height+numberHeight:height);
@@ -111,6 +117,8 @@ function timeline(container, data){
             .attr("width", 1)
             .attr("height", drawNumbers?numberHeight+height:height)
             .attr("fill", "black");
+
+            
     }
     
     function drawDay(){
