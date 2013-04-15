@@ -1,6 +1,6 @@
 function clock12(container, data){
     var width = 250,
-        height = 250,
+        height = width,
         dayNameWidth = 70,
         lwidth = 150,
         highlightStrokeWidth = 5;
@@ -15,8 +15,7 @@ function clock12(container, data){
     var color = new Color();
     
     var container = d3.select(container)
-        .append("div")
-        .style("width", width*2 + dayNameWidth+ lwidth + "px");
+        .append("div");
  
     container 
         .append("div")
@@ -45,7 +44,8 @@ function clock12(container, data){
         for(var j = 0; j < week.length; j++){
             dayContainer = container
                 .append("div")
-                .style("clear", "both")
+                .style("width", width*2 + dayNameWidth + lwidth + "px")
+                .style("float", "left")
                 .attr("class", "chart");
                 
             cssIsStupid = dayContainer
