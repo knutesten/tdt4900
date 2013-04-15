@@ -3,7 +3,7 @@ function pie(container, data){
     var isWeekView = true;
      
     var dayNameWidth = 70,
-        height = 250,
+        height = 230,
         width = height,
         lwidth = 150,
         radius = Math.min(width, height) / 2;
@@ -11,8 +11,7 @@ function pie(container, data){
     var color = new Color();
      
     var container = d3.select(container)
-        .append("div")
-        .style("width", (width + dayNameWidth) +lwidth + "px");
+        .append("div");
 
     container 
         .append("div")
@@ -32,7 +31,8 @@ function pie(container, data){
         for(var j = 0; j < weekSummed.length; j++){
             dayContainer = container
                 .append("div")
-                .style("clear", "both")
+                .style("float", "left")
+                .style("width", (width + dayNameWidth) + lwidth + "px")
                 .attr("class", "chart");
 
             cssIsStupid = dayContainer

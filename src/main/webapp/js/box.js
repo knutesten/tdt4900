@@ -6,7 +6,7 @@ function box(container, data){
         boxMargin = 5,
         margin = {top: 0, right: 10, bottom: 10, left: 10},
         dayNameWidth = 70,
-        width = 500,
+        width = 400,
         lwidth= 150,
         chartWidth = width - margin.left - margin.right - dayNameWidth,
         height = 200 - margin.top - margin.bottom,
@@ -18,8 +18,7 @@ function box(container, data){
         isWeekView = true;
 
     var container = d3.select(container)
-        .append("div")
-        .style("width", width + lwidth + "px");
+        .append("div");
 
     container 
         .append("div")
@@ -42,7 +41,8 @@ function box(container, data){
         for(var j = 0; j < weekSummed.length; j++){
             dayContainer = container
                 .append("div")
-                .style("clear", "both")
+                .style("width", width + lwidth + "px")
+                .style("float", "left")
                 .attr("class", "chart");
 
             cssIsStupid = dayContainer
@@ -131,8 +131,6 @@ function box(container, data){
                 return coloz.darker();
             });
         }
-        
         appendLegend(container, "nominal");
-
     }
 }
