@@ -10,10 +10,10 @@ function classifyDay(day) {
 
     }
     if (time < lowerTime) {
-        return 0;
+        return 2;
     }
     else if (time > upperTime) {
-        return 2;
+        return 0;
     }
     else {
         return 1;
