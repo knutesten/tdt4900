@@ -99,7 +99,7 @@ function pie(container, data){
             .attr("dy", ".35em")
             .style("text-anchor", "middle")
             .style("fill", "black")
-            .text(function(d) { return Math.round(d.data.sum/(3600*1000*24)*100) +"%"; });      
+            .text(function(d) { return Math.round(d.data.sum/(3600*1000*24)*1000)/10 +"%"; });      
     }
 }
 
