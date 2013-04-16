@@ -82,18 +82,24 @@ function pie(container, data){
             var pieGroup= svg
             .append("g")
             .attr("class", "pie")
-                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
                 
         var g = pieGroup.selectAll(".arc")
-              .data(pie(data))
+            .data(pie(data))
             .enter().append("g")
-              .attr("class", "arc");
+            .attr("class", "arc");
         
         g.append("path")
-              .attr("d", arc)
-              .style("fill", function(d) { return color.nominal(d.data.activityCode); });
-        
-        
+            .attr("d", arc)
+            .style("fill", function(d) { return color.nominal(d.data.activityCode); });
+
+        arc.outerRadius(radius*1.4);
+        g.append("text")
+            .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+            .attr("dy", ".35em")
+            .style("text-anchor", "middle")
+            .style("fill", "black")
+            .text(function(d) { return Math.round(d.data.sum/(3600*1000*24)*100) +"%"; });      
     }
 }
 
