@@ -26,8 +26,6 @@ function box(container, data){
         .style("margin-bottom", 30 + "px")
         .on("click", switchView);
 
-    appendLegend(container, "nominal");
-
     switchView();
         
     function drawDay(){
