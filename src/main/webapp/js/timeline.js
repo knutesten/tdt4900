@@ -4,7 +4,7 @@ function timeline(container, data){
         isHighlighting = false,
         numberHeight = 12,
         dayNameWidth = 70,
-        lwidth = 150,
+        lwidth = 0,
         highlightHeight = 7;
 
     var millis = 1000*3600;

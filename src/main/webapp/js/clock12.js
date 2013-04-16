@@ -2,7 +2,7 @@ function clock12(container, data){
     var width = 250,
         height = width,
         dayNameWidth = 70,
-        lwidth = 150,
+        lwidth = 0,
         highlightStrokeWidth = 5;
 
     var week = data.getWeek12Hours();
@@ -28,6 +28,7 @@ function clock12(container, data){
         .style("margin-bottom", 30 + "px")
         .on("click", switchView);
 
+    appendLegend(container, "nominal");
     switchView();
      
     function drawDay(){
@@ -67,7 +68,6 @@ function clock12(container, data){
 
     function switchHighlighting(){
         container.selectAll(".chart").remove();
-        container.selectAll(".lbox").remove();
         isHighlighting = !isHighlighting;
         if(isWeekView){
             drawWeek();
@@ -78,7 +78,6 @@ function clock12(container, data){
 
     function switchView(){
         container.selectAll(".chart").remove();
-        container.selectAll(".lbox").remove();
         if(isWeekView){
             drawDay();
         }else{
@@ -211,7 +210,5 @@ function clock12(container, data){
                       
                       .text(function(d) {return d.label; });
         }
-
-        appendLegend(container, "nominal");
     }
 }

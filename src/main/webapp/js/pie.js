@@ -5,7 +5,7 @@ function pie(container, data){
     var dayNameWidth = 70,
         height = 230,
         width = height,
-        lwidth = 150,
+        lwidth = 20
         radius = Math.min(width, height) / 2;
     
     var color = new Color();
@@ -18,6 +18,8 @@ function pie(container, data){
         .text("Switch view.")
         .style("margin-bottom", 30 + "px")
         .on("click", switchView);
+
+    appendLegend(container, "nominal");
 
     switchView();
         
@@ -54,7 +56,6 @@ function pie(container, data){
 
     function switchView(){
         container.selectAll(".chart").remove();
-        container.selectAll(".lbox").remove();
         if(isWeekView){
             drawDay();
         }else{
@@ -92,7 +93,7 @@ function pie(container, data){
               .attr("d", arc)
               .style("fill", function(d) { return color.nominal(d.data.activityCode); });
         
-        appendLegend(container, "nominal");
+        
     }
 }
 

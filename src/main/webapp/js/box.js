@@ -7,7 +7,7 @@ function box(container, data){
         margin = {top: 0, right: 10, bottom: 10, left: 10},
         dayNameWidth = 70,
         width = 400,
-        lwidth= 150,
+        lwidth= 20,
         chartWidth = width - margin.left - margin.right - dayNameWidth,
         height = 200 - margin.top - margin.bottom,
         backgroundColor = "white";
@@ -25,6 +25,8 @@ function box(container, data){
         .text("Switch view.")
         .style("margin-bottom", 30 + "px")
         .on("click", switchView);
+
+    appendLegend(container, "nominal");
 
     switchView();
         
@@ -64,7 +66,6 @@ function box(container, data){
 
     function switchView(){
         container.selectAll(".chart").remove();
-        container.selectAll(".lbox").remove();
         if(isWeekView){
             drawDay();
         }else{
@@ -131,6 +132,5 @@ function box(container, data){
                 return coloz.darker();
             });
         }
-        appendLegend(container, "nominal");
     }
 }

@@ -4,7 +4,7 @@ function bubbleChart(container, data){
     var data = data.getWeek()[1];
     var width = 500,
         height = 500,
-        lwidth = 150,
+        lwidth = 0,
         highlightStrokeWidth = 3;
 
     var offset = 35;
@@ -55,6 +55,8 @@ function bubbleChart(container, data){
         nodes.push(element);
     }
     
+
+    appendLegend(container, "nominal");
     draw();
 
     function switchHighlighting(){
@@ -177,6 +179,6 @@ function bubbleChart(container, data){
             }
         }
 
-        appendLegend(container, "nominal");
+
     }
 }

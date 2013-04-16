@@ -26,6 +26,7 @@ function clock24(container, data){
         .style("margin-bottom", 30 + "px")
         .on("click", switchView);
 
+    appendLegend(container, "nominal");
     switchView();
      
     function drawDay(){
@@ -65,7 +66,6 @@ function clock24(container, data){
 
     function switchHighlighting(){
         container.selectAll(".chart").remove();
-        container.selectAll(".lbox").remove();
         isHighlighting = !isHighlighting;
         if(isWeekView){
             drawWeek();
@@ -76,7 +76,6 @@ function clock24(container, data){
 
     function switchView(){
         container.selectAll(".chart").remove();
-        container.selectAll(".lbox").remove();
         if(isWeekView){
             drawDay();
         }else{
@@ -165,6 +164,7 @@ function clock24(container, data){
               .style("text-anchor", "middle")
               .text(function (d) { return d.label; });
 
-           appendLegend(container, "nominal");
+
     }	
 }
+           

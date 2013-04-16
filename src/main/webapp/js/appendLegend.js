@@ -60,7 +60,7 @@ function appendLegend(container, type, position) {
             .attr("class", "lbox")
             .attr("width", lwidth)
             .attr("height", height - 100)
-            .style("position", "relative");
+            .style("display","block");
           //  .style("float", "left");
 
         var legend = svg
