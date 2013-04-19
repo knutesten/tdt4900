@@ -33,7 +33,7 @@ function bar(container, data){
         .style("margin-bottom", 30 + "px")
         .on("click", switchView);
     
-    appendLegend(container, "nominal"); 
+    appendLegend(container, "bar"); 
 
     switchView();
  
