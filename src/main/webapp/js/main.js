@@ -9,8 +9,10 @@ function ViewModel(){
         {name: "T1", draw: timelineBlock},
         {name: "T2", draw: timeline},
         {name: "T3", draw: clock12},
-        {name: "T4", draw: clock24}
+        {name: "T4", draw: clock24},
+        {name: "activPAL", draw: bar}
     ]);
+
     for(var i = 0; i < self.charts().length; i++){
         self.charts()[i].isSelected = ko.observable(false);
     }
