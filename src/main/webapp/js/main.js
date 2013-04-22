@@ -17,6 +17,7 @@ function ViewModel(){
     data = self.data;
 
     var prevSelected = undefined;
+
     self.drawChart = function(d){
         if(prevSelected){
             prevSelected.isSelected(false);
@@ -26,7 +27,31 @@ function ViewModel(){
 
         $("#vis").empty();
         d.draw("#vis", self.data);
-    }
+    };
+
+    self.refresh = function () {
+        $("#vis").empty();
+        prevSelected.draw("#vis", self.data);
+    };
+
+    self.activityGoal = ko.observable();
+    self.walkingGoal = ko.observable();
+
+    self.walkingGoal.subscribe(function (newValue) {
+        if(!isNaN(newValue) && newValue>0){
+            walkingGoal = newValue * 3600 * 1000;
+            self.refresh();
+        }
+    });
+
+    self.activityGoal.subscribe(function (newValue) {
+        if(!isNaN(newValue) && newValue>0){
+            activityGoal = newValue * 3600 * 1000;
+            self.refresh();
+        }
+    });
 }
 
-ko.applyBindings(new ViewModel());
+var viewModel = new ViewModel();
+
+ko.applyBindings(viewModel);

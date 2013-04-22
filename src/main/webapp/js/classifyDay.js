@@ -1,8 +1,5 @@
 //Algorithm used to categorize each day. SUPER ADVANCED!
 function classifyDay(daySummed) {
-    var walkingGoal = 0.5 * 3600 * 1000,
-        activityGoal = 5 * 3600 * 1000;
-
     var walkingMet = daySummed.data[2].sum>walkingGoal,
         activityMet = (daySummed.data[1].sum + daySummed.data[2].sum)>activityGoal;
     

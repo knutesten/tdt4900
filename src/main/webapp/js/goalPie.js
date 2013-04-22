@@ -1,8 +1,5 @@
 function appendGoalPie(container, height, daySummed){
     var goalData = [];
-
-    var walkingGoal = 0.5*3600*1000,
-        activityGoal = 5*3600*1000;
     
     var activity = daySummed.data[1].sum + daySummed.data[2].sum,
         walking = daySummed.data[2].sum;
