@@ -1,23 +1,18 @@
 //Algorithm used to categorize each day. SUPER ADVANCED!
-function classifyDay(day) {
-    var time = 0;
-    var upperTime = 61115600;
-    var lowerTime = 60115600;
-    for (var i = 0; i < day.length; i++) {
-        if (day[i].activityCode === 0) {
-            time += day[i].interval;
-        }
+function classifyDay(daySummed) {
+    var walkingGoal = 0.5 * 3600 * 1000,
+        activityGoal = 5 * 3600 * 1000;
 
-    }
-    if (time < lowerTime) {
+    var walkingMet = daySummed.data[2].sum>walkingGoal,
+        activityMet = (daySummed.data[1].sum + daySummed.data[2].sum)>activityGoal;
+    
+    if(walkingMet && activityMet){
         return 2;
-    }
-    else if (time > upperTime) {
+    } else if(walkingMet || activityMet){
+        return 1;
+    } else {
         return 0;
     }
-    else {
-        return 1;
-    }
-}
+} 
 
 
