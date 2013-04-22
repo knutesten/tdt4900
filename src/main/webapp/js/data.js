@@ -56,7 +56,6 @@ Data.prototype.getWeek = function () {
 };
 
 Data.prototype.getWeekBlocks = function () {
-    var weekSummed = this.getWeekSummed();
     if (!this.weekBlocks) {
         var week = this.getWeek();
         this.weekBlocks = [];
@@ -64,7 +63,6 @@ Data.prototype.getWeekBlocks = function () {
         for (var i = 0; i < week.length; i++) {
             element = {};
             element.blocks = createBlocks(week[i]);
-            element.category = classifyDay(weekSummed[i]);
             element.day = getDayName(week[i][0].time.getDay());
             this.weekBlocks.push(element);
         }

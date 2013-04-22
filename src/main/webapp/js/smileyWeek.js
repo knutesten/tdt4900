@@ -28,10 +28,10 @@
     gul = gday.append("ul").attr("class", "dayList");
     oul = oday.append("ul").attr("class", "dayList");
     bul = bday.append("ul").attr("class", "dayList");
-  
+     
     //Go through the days and create them in the appropriate category
     for (var i = 0; i < days.length; i++) {
-        switch (days[i].category) {
+        switch (classifyDay(weekSummed[i])) {
             case 0:
                 bul.append("li")
                     .style("background-color", color.grayscale(0))

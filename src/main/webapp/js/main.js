@@ -30,12 +30,14 @@ function ViewModel(){
     };
 
     self.refresh = function () {
-        $("#vis").empty();
-        prevSelected.draw("#vis", self.data);
+        if(prevSelected){
+            $("#vis").empty();
+            prevSelected.draw("#vis", self.data);
+        }
     };
 
-    self.activityGoal = ko.observable();
-    self.walkingGoal = ko.observable();
+    self.activityGoal = ko.observable(activityGoal/3600000);
+    self.walkingGoal = ko.observable(walkingGoal/3600000);
 
     self.walkingGoal.subscribe(function (newValue) {
         if(!isNaN(newValue) && newValue>0){
