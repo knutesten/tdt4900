@@ -1,5 +1,5 @@
 function appendGoalPie(container, height, daySummed){
-    var goalData = [[], []];
+    var goalData = [];
 
     var walkingGoal = 0.5*3600*1000,
         activityGoal = 5*3600*1000;
@@ -7,33 +7,53 @@ function appendGoalPie(container, height, daySummed){
     var activity = daySummed.data[1].sum + daySummed.data[2].sum,
         walking = daySummed.data[2].sum;
 
-    goalData[0].push({
-        color: "steelblue", 
+    var color = new Color();
+    
+    for(var i = 0; i < Math.floor(activity/activityGoal); i++) {
+        goalData.push([]);
+        goalData[i].push({
+            color: color.nominal(1),
+            sum: 1
+        });
+        activity -= activityGoal;
+    }
+    
+    goalData.push([]);
+    goalData[i].push({
+        color: color.nominal(1), 
         sum: activity
     });
 
-    if(activityGoal > activity){
-        goalData[0].push({
-            color: "white",
-            sum: activityGoal - activity
-        });
-    }
+    goalData[i].push({
+        color: "white",
+        sum: activityGoal - activity
+    });
 
-    goalData[1].push({
-        color: "red", 
+    for(var i = goalData.length; i < goalData.length+Math.floor(walking/walkingGoal); i++){
+        goalData.push([]);
+        goalData[i].push({
+            color: color.nominal(2), 
+            sum: 1
+        });
+
+        walking -= walkingGoal;
+    }
+    
+    goalData.push([]);
+    goalData[i].push({
+        color: color.nominal(2), 
         sum: walking
     });
 
-    if(walkingGoal > walking){
-        goalData[1].push({
-            color: "white",
-            sum: walkingGoal - walking
-        });
-    }
-        
-    var padding = 10,
+    goalData[i].push({
+        color: "white",
+        sum: walkingGoal - walking
+    });
+
+    var padding = 3,
+        margin = {left:10},
         radius = height/2,
-        width = radius*4 + padding;
+        width = radius * goalData.length*2 + padding * (goalData.length - 1);
     
     var arc = d3.svg.arc()
         .outerRadius(radius)
@@ -49,7 +69,7 @@ function appendGoalPie(container, height, daySummed){
         .attr("width", width)
         .attr("height", height)
         .style("float", "left")
-        .style("margin-left", padding+"px");
+        .style("margin-left", margin.left+"px");
 
     for(var i = 0; i < goalData.length; i++){
         var g = svg.append("g")
