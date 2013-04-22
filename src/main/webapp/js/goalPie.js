@@ -5,16 +5,16 @@ function appendGoalPie(container, height, daySummed){
         walking = daySummed.data[2].sum;
 
     var color = new Color();
-    
-    for(var i = 0; i < Math.floor(activity/activityGoal); i++) {
+    var length = Math.floor(activity/activityGoal);
+    for(var i = 0; i < length; i++) {
         goalData.push([]);
         goalData[i].push({
             color: color.nominal(1),
             sum: 1
         });
-        activity -= activityGoal;
     }
-    
+    activity %= activityGoal;
+     
     goalData.push([]);
     goalData[i].push({
         color: color.nominal(1), 
@@ -26,16 +26,16 @@ function appendGoalPie(container, height, daySummed){
         sum: activityGoal - activity
     });
 
-    for(var i = goalData.length; i < goalData.length+Math.floor(walking/walkingGoal); i++){
+    length = goalData.length + Math.floor(walking/walkingGoal);
+    for(var i = goalData.length; i < length; i++){
         goalData.push([]);
         goalData[i].push({
             color: color.nominal(2), 
             sum: 1
         });
-
-        walking -= walkingGoal;
     }
-    
+    walking %= walkingGoal; 
+     
     goalData.push([]);
     goalData[i].push({
         color: color.nominal(2), 
@@ -46,7 +46,7 @@ function appendGoalPie(container, height, daySummed){
         color: "white",
         sum: walkingGoal - walking
     });
-
+    
     var padding = 3,
         margin = {left:10},
         radius = height/2,
@@ -78,6 +78,7 @@ function appendGoalPie(container, height, daySummed){
             .append("path")
             .attr("d", arc)
             .style("fill", function (d) {
+                console.log(d);
                 return d.data.color;
             });
     }
