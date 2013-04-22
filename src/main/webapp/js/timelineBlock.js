@@ -1,12 +1,13 @@
 ﻿function timelineBlock(container, data, daysToShow){
     var weekBlocks = data.getWeekBlocks();
+    var weekSummed = data.getWeekSummed();
     var isWeekView = true;
     var tooltip;
     
     var color = new Color(); 
         width = 700,
         height = 30,
-        backgroundColor = "lightgray",
+        backgroundColor = "white",
         margin = { 
             left: 0,
             right: 0,
@@ -20,8 +21,7 @@
         fontColor = "black";
 
     var container = d3.select(container)
-        .append("div")
-        .style("width", width + "px");
+        .append("div");
     
     container
         .append("div")
@@ -48,16 +48,16 @@
                 .style("width", dayNameWidth+"px")
                 .html(weekBlocks[j].day);
 
-            draw(weekBlocks[j].blocks, dayContainer);
+            draw(weekBlocks[j].blocks, dayContainer, weekSummed[j]);
         }
     }
 
     function drawDay(){
         isWeekView = false;
-        draw(weekBlocks[1].blocks, container);
+        draw(weekBlocks[1].blocks, container, weekSummed[1]);
     }
     
-    function draw(blocks, container){ 
+    function draw(blocks, container, daySummed){ 
         var div = container
             .append("div")
             .attr("class", "timeline")
@@ -86,6 +86,8 @@
                .style("color", fontColor)
                .text(i<10?"0"+i:i+"");
         }
+
+        appendGoalPie(div, height, daySummed);
     }
 
     function switchView(){
