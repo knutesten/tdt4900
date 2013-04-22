@@ -1,10 +1,11 @@
 function bar(container, data){
     var weekBlocks = data.getWeekBlocks(),
+        weekSummed = data.getWeekSummed(),
         isWeekView = true,
         dayNameWidth = 70;
 
     var margin = {top: 10, right: 0, left: 25, bottom: 20},
-        width = 900 - margin.left - margin.right - dayNameWidth,
+        width = 800 - margin.left - margin.right - dayNameWidth,
         height = 90 - margin.top - margin.bottom;
 
     var x = d3.scale.ordinal()
@@ -59,13 +60,16 @@ function bar(container, data){
                 .style("vertical-align", "middle")
                 .text(weekBlocks[j].day);
                 
-            draw(weekBlocks[j].blocks, dayContainer);
+            draw(weekBlocks[j].blocks, dayContainer, weekSummed[j]);
         }
     }
 
     function drawDay(){
         isWeekView = false;
-        draw(weekBlocks[1].blocks, container);
+        dayContainer = container.append("div")
+            .attr("class", "viz");
+
+        draw(weekBlocks[1].blocks, dayContainer, weekSummed[1]);
     }
     
     function switchView(){
@@ -77,9 +81,8 @@ function bar(container, data){
         }
     }
 
-    function draw(data, container){
+    function draw(data, container, daySummed){
         var svg = container.append("svg")
-            .attr("class", "viz")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
             .style("float", "left")
@@ -133,5 +136,7 @@ function bar(container, data){
             .style("fill", function(d) {
                 return d.color;
             });
+
+        appendGoalPie(container, height, daySummed);
     }
 }
