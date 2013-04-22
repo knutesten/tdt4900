@@ -78,7 +78,6 @@ function appendGoalPie(container, height, daySummed){
             .append("path")
             .attr("d", arc)
             .style("fill", function (d) {
-                console.log(d);
                 return d.data.color;
             });
     }
