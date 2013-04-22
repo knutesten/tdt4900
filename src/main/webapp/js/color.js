@@ -1,7 +1,7 @@
 function Color() {
     var self = this;
     this.undefinedColor = "blue";
-    this.nominalColors = ["red", "yellow", "green", "blue"];
+    this.nominalColors = ["red", "#d7df01", "green", "blue"];
 
     //Shades of Gray: http://www.w3schools.com/html/html_colors.asp
     this.grayscaleColors = ["#FFFFFF", "#B0B0B0", "#808080"]

@@ -5,7 +5,7 @@ function bar(container, data){
         dayNameWidth = 70;
 
     var margin = {top: 10, right: 0, left: 25, bottom: 20},
-        width = 800 - margin.left - margin.right - dayNameWidth,
+        width = 770 - margin.left - margin.right - dayNameWidth,
         height = 90 - margin.top - margin.bottom;
 
     var x = d3.scale.ordinal()
@@ -137,6 +137,6 @@ function bar(container, data){
                 return d.color;
             });
 
-        appendGoalPie(container, height, daySummed);
+        appendGoalPie(container, height/2, daySummed);
     }
 }
