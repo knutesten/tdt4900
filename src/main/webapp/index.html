@@ -13,12 +13,14 @@
         </div>
         <input data-bind="value: activityGoal, valueUpdate: 'keyup'" />
         <input data-bind="value: walkingGoal, valueUpdate: 'keyup'" />
+        <button data-bind="click: incrementGradientSelector" >Change Color</button>
         <div id="vis"></div>
     </body>
     <script type="text/javascript" src="libs/d3.v3.min.js"></script>
     <script type="text/javascript" src="libs/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="libs/knockout-min.js"></script>
     <script type="text/javascript" src="less.js" type="text/javascript"></script>  
+    <script type="text/javascript" src="js/constants.js"></script>
     <script type="text/javascript" src="js/timelineBlock.js"></script>
     <script type="text/javascript" src="js/pie.js"></script>
     <script type="text/javascript" src="js/parse.js"></script>
@@ -39,6 +41,5 @@
     <script type="text/javascript" src="js/appendLegend.js"></script>
     <script type="text/javascript" src="js/bar.js"></script>
     <script type="text/javascript" src="js/goalPie.js"></script>
-    <script type="text/javascript" src="js/constants.js"></script>
     <script type="text/javascript" src="js/main.js"></script>   
 </html>

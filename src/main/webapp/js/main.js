@@ -52,6 +52,11 @@ function ViewModel(){
             self.refresh();
         }
     });
+
+    self.incrementGradientSelector = function () {
+        gradientSelector++;
+        self.refresh();
+    };
 }
 
 var viewModel = new ViewModel();
