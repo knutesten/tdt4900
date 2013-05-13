@@ -112,6 +112,22 @@ function bar(container, data){
         svg.append("g")
             .attr("class", "y axis")
             .call(yAxis);
+        console.log(yAxis);
+
+        var lines = [20, 40, 0];
+            
+        for (var i in lines) {
+          svg.append("g")
+            .attr("class", "is")
+            .attr("transform", "translate(0, "+ lines[i] +")")
+            .append("line")
+            .attr("x2", width)
+            .attr("y2", 0)
+            .style("stroke", "black")
+            .style("stroke-width", "1px")
+            .style("stroke-dasharray", "3,3");
+        }
+
             
         var state = svg.selectAll(".state")
             .data(data)
