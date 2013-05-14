@@ -11,9 +11,7 @@
                 <li data-bind="text: name, css: {selected: isSelected}, click: $root.drawChart"></li> 
             </ul>
         </div>
-        <input data-bind="value: activityGoal, valueUpdate: 'keyup'" />
-        <input data-bind="value: walkingGoal, valueUpdate: 'keyup'" />
-        <button data-bind="click: incrementGradientSelector" >Change Color</button>
+        <p data-bind="click: incrementGradientSelector" >Switch color</p>
         <div id="vis"></div>
     </body>
     <script type="text/javascript" src="libs/d3.v3.min.js"></script>

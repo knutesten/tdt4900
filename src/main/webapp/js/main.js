@@ -54,11 +54,26 @@ function ViewModel(){
     });
 
     self.incrementGradientSelector = function () {
+      console.log(self.charts()[3].isSelected() + " " + gradientSelector%5);
+      if (self.charts()[3].isSelected()) {
         gradientSelector++;
-        self.refresh();
+        if(gradientSelector%6 == 5){
+          nominalSelector = 1;
+        } else {
+          nominalSelector = 0;
+        }
+      } else {
+        nominalSelector++;
+      } 
+      self.refresh();
     };
 }
 
 var viewModel = new ViewModel();
+
+function set( v1, v2) {
+  viewModel.activityGoal(v1);
+  viewModel.walkingGoal(v2);
+}
 
 ko.applyBindings(viewModel);

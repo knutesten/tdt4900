@@ -166,12 +166,13 @@ function clock24(container, data){
              .enter()
              .append("g")
              .attr("class", "clock");
-      
+        arc.innerRadius(radius-30); 
          clock.append("path")
              .attr("d", arc)
              .attr("stroke", "black")
              .attr("stroke-width", 0.3);
-         
+        
+             arc.innerRadius(0);
             arc.outerRadius(radius*2-15);
             clock.append("text")
                .attr("transform", function(d) {
@@ -179,8 +180,6 @@ function clock24(container, data){
                .attr("dy", ".35em")
                .style("text-anchor", "middle")
                .text(function (d) { return d.label; });
-
-
       }	
 }
            

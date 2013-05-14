@@ -83,7 +83,12 @@
                .style("border-width", "0px 0px 0px " + boxBorderWidth + "px")
                .style("border-color", boxBorderColor)
                .style("text-align", "center")
-               .style("color", fontColor)
+               .style("color", function() {
+                 if(blocks[i].activity > 0.5)
+                   return "white";
+                 else
+                   return "black";
+               })
                .text(i<10?"0"+i:i+"");
         }
 
