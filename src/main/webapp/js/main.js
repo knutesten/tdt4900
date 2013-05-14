@@ -6,7 +6,7 @@ function ViewModel(){
         {name: "F3", draw: bubbleChart},
         {name: "T1", draw: timelineBlock},
         {name: "T4", draw: clock24},
-        {name: "activPAL", draw: bar}
+        {name: "T5", draw: bar}
     ]);
 
     for(var i = 0; i < self.charts().length; i++){
