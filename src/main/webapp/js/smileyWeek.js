@@ -13,15 +13,15 @@
     var bday = mdiv.append('div').attr("id", "badMainDiv");
     
     gday.append("img")
-        .attr("src", "fig/gday.svg")
+        .attr("src", "fig/cgday.png")
         .attr("height", height / 3)
         .attr("class", "smileImg");
     oday.append("img")
-        .attr("src", "fig/oday.svg")
+        .attr("src", "fig/coday.png")
         .attr("height", height / 3)
         .attr("class", "smileImg");
     bday.append("img")
-        .attr("src", "fig/bday.svg")
+        .attr("src", "fig/cbday.png")
         .attr("height", height / 3)
         .attr("class", "smileImg");
 

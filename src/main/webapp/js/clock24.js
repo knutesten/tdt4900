@@ -37,31 +37,37 @@ function clock24(container, data){
     function drawWeek(){
         isWeekView = true;
 
-        var dayContainer,
-            cssIsStupid;
+        var img = container.append("img")
+            .attr("src", "fig/grayclocks.png")
+            .attr("class", "chart")
+            .attr("position", "relative")
+            .style("float", "left");
 
-        for(var j = 0; j < week.length; j++){
-            dayContainer = container
-                .append("div")
-                .style("width", width + dayNameWidth + lwidth + "px")
-                .style("float", "left")
-                .attr("class", "chart");
-                
-            cssIsStupid = dayContainer
-                .append("div")
-                .style("float", "left")
-                .style("display", "table")
-                .style("width", dayNameWidth+"px")
-                .style("height", height + "px");
+        // var dayContainer,
+        //     cssIsStupid;
 
-            cssIsStupid
-                .append("div")
-                .style("display", "table-cell")
-                .style("vertical-align", "middle")
-                .text(getDayName(week[j][0].time.getDay()));
+        // for(var j = 0; j < week.length; j++){
+        //     dayContainer = container
+        //         .append("div")
+        //         .style("width", width + dayNameWidth + lwidth + "px")
+        //         .style("float", "left")
+        //         .attr("class", "chart");
                 
-            draw(week[j], dayContainer);
-        }
+        //     cssIsStupid = dayContainer
+        //         .append("div")
+        //         .style("float", "left")
+        //         .style("display", "table")
+        //         .style("width", dayNameWidth+"px")
+        //         .style("height", height + "px");
+
+        //     cssIsStupid
+        //         .append("div")
+        //         .style("display", "table-cell")
+        //         .style("vertical-align", "middle")
+        //         .text(getDayName(week[j][0].time.getDay()));
+                
+        //     draw(week[j], dayContainer);
+        // }
     }
 
     function switchHighlighting(){
@@ -94,77 +100,84 @@ function clock24(container, data){
             .sort(null)
             .value(function(d) { return d.interval; });
 
-        var svg = container.append("svg")
+        var img = container.append("img")
+            .attr("src", "fig/grayclock.png")
             .attr("class", "chart")
             .attr("width", width)
-            .style("postion", "relative")
-            .style("float", "left")
-            .attr("height", height)
-                .append("g")
-            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+            .attr("position", "relative")
+            .style("float", "left");
 
-        var g = svg.selectAll(".arc")
-              .data(pie(data))
-              .enter().append("g")
-              .attr("class", "arc");
+     //    var svg = container.append("svg")
+     //        .attr("class", "chart")
+     //        .attr("width", width)
+     //        .style("postion", "relative")
+     //        .style("float", "left")
+     //        .attr("height", height)
+     //            .append("g")
+     //        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-        g.append("path")
-            .attr("d", arc)
-            .style("fill", function(d) {
-                return color.nominal(d.data.activityCode); 
-            })
-            .style("stroke", function(d) {
-                if(isHighlighting && d.data.highlight){ 
-                    return color.nominal(3);
-                } 
-                return color.nominal(d.data.activityCode); 
-            })
-            .style("stroke-width", function (d) {
-                if(isHighlighting){
-                    if(d.data.highlight){ 
-                        return highlightStrokeWidth;
-                    } else {
-                        return 0.3;
-                    }
-                } 
-                return 0.3; 
-            })
-            .attr("stroke-dasharray", function (d) {
-                if(isHighlighting && d.data.highlight){
-                    return [(radius-20)*(d.endAngle - d.startAngle)-0.1, 1000000].join();
-                } 
-                return "none"; 
-            });
+     //    var g = svg.selectAll(".arc")
+     //          .data(pie(data))
+     //          .enter().append("g")
+     //          .attr("class", "arc");
+
+     //    g.append("path")
+     //        .attr("d", arc)
+     //        .style("fill", function(d) {
+     //            return color.nominal(d.data.activityCode); 
+     //        })
+     //        .style("stroke", function(d) {
+     //            if(isHighlighting && d.data.highlight){ 
+     //                return color.nominal(3);
+     //            } 
+     //            return color.nominal(d.data.activityCode); 
+     //        })
+     //        .style("stroke-width", function (d) {
+     //            if(isHighlighting){
+     //                if(d.data.highlight){ 
+     //                    return highlightStrokeWidth;
+     //                } else {
+     //                    return 0.3;
+     //                }
+     //            } 
+     //            return 0.3; 
+     //        })
+     //        .attr("stroke-dasharray", function (d) {
+     //            if(isHighlighting && d.data.highlight){
+     //                return [(radius-20)*(d.endAngle - d.startAngle)-0.1, 1000000].join();
+     //            } 
+     //            return "none"; 
+     //        });
                  
               
-        var clockData = [], angle, label;
-        for(var j = 0; j < 24; j++){
-            label = (j)%24;
-            angle = Math.PI * j /12;
-            clockData[j] = {label:label, startAngle: angle, endAngle:angle};
-        }      
+     //    var clockData = [], angle, label;
+     //    for(var j = 0; j < 24; j++){
+     //        label = (j)%24;
+     //        angle = Math.PI * j /12;
+     //        clockData[j] = {label:label, startAngle: angle, endAngle:angle};
+     //    }      
 
-        arc.outerRadius(radius-17);
-        var clock = svg.selectAll(".clock")
-            .data(clockData)
-            .enter()
-            .append("g")
-            .attr("class", "clock");
+     //    arc.outerRadius(radius-17);
+     //    var clock = svg.selectAll(".clock")
+     //        .data(clockData)
+     //        .enter()
+     //        .append("g")
+     //        .attr("class", "clock");
         
-        clock.append("path")
-            .attr("d", arc)
-            .attr("stroke", "black")
-            .attr("stroke-width", 0.3);
+     //    clock.append("path")
+     //        .attr("d", arc)
+     //        .attr("stroke", "black")
+     //        .attr("stroke-width", 0.3);
            
-           arc.outerRadius(radius*2-15);
-           clock.append("text")
-              .attr("transform", function(d) {
-                  return "translate(" + arc.centroid(d) + ")"; })
-              .attr("dy", ".35em")
-              .style("text-anchor", "middle")
-              .text(function (d) { return d.label; });
+     //       arc.outerRadius(radius*2-15);
+     //       clock.append("text")
+     //          .attr("transform", function(d) {
+     //              return "translate(" + arc.centroid(d) + ")"; })
+     //          .attr("dy", ".35em")
+     //          .style("text-anchor", "middle")
+     //          .text(function (d) { return d.label; });
 
 
-    }	
+      }	
 }
            

@@ -25,6 +25,7 @@ function box(container, data){
         .text("Switch view.")
         .style("margin-bottom", 30 + "px")
         .on("click", switchView);
+    appendLegend(container, "nominal");
 
     switchView();
         
