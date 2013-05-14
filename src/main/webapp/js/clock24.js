@@ -37,11 +37,11 @@ function clock24(container, data){
     function drawWeek(){
         isWeekView = true;
 
-        var img = container.append("img")
-            .attr("src", "fig/grayclocks.png")
-            .attr("class", "chart")
-            .attr("position", "relative")
-            .style("float", "left");
+        // var img = container.append("img")
+        //     .attr("src", "fig/grayclocks.png")
+        //     .attr("class", "chart")
+        //     .attr("position", "relative")
+        //     .style("float", "left");
 
          var dayContainer,
              cssIsStupid;
