@@ -112,7 +112,6 @@ function bar(container, data){
         svg.append("g")
             .attr("class", "y axis")
             .call(yAxis);
-        console.log(yAxis);
 
         var lines = [20, 40, 0];
             
