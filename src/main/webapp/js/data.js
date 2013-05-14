@@ -1,6 +1,6 @@
 ﻿function Data(){
     var self = this;
-    this.source = "../csv/test2.csv";
+    this.source = "../csv/mtest2.csv";
     this.HIGHLIGHT_THRESHOLD = 1 * 1000 * 3600;
     this.weekBlocks = undefined;
     this.week12Hours = undefined;
