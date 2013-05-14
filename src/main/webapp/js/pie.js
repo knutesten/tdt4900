@@ -93,15 +93,19 @@ function pie(container, data){
             .attr("d", arc)
             .style("fill", function(d) { return color.nominal(d.data.activityCode); });
 
-        /*
-         *arc.outerRadius(radius*1.4);
-         *g.append("text")
-         *    .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
-         *    .attr("dy", ".35em")
-         *    .style("text-anchor", "middle")
-         *    .style("fill", "black")
-         *    .text(function(d) { return Math.round(d.data.sum/(3600*1000*24)*1000)/10 +"%"; });      
-         */
+       
+        var sum = 0;
+        console.log(data);
+        for (var i in data) {
+          sum+= data[i].sum;
+        }
+        arc.outerRadius(radius*1.4);
+        g.append("text")
+            .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+            .attr("dy", ".35em")
+            .style("text-anchor", "middle")
+            .style("fill", "black")
+            .text(function(d) { return Math.round(d.data.sum/sum*1000)/10 +"%"; });      
     }
 }
 
