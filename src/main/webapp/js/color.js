@@ -1,7 +1,7 @@
 function Color() {
     var self = this;
     this.undefinedColor = "blue";
-    this.nominalColors = ["red", "#d7df01", "green", "blue"];
+    this.nominalColors = ["white", "#d7df01", "green", "blue"];
     this.scales = [
         d3.scale.linear().domain([0, 1]).range(["white", "blue"]),
         d3.scale.linear().domain([0, 1]).range(["white", "red"]),
